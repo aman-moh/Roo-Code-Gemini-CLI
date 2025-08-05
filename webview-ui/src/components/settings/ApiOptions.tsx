@@ -15,6 +15,7 @@ import {
 	litellmDefaultModelId,
 	openAiNativeDefaultModelId,
 	anthropicDefaultModelId,
+	doubaoDefaultModelId,
 	claudeCodeDefaultModelId,
 	geminiDefaultModelId,
 	geminiCliDefaultModelId,
@@ -23,9 +24,14 @@ import {
 	mistralDefaultModelId,
 	xaiDefaultModelId,
 	groqDefaultModelId,
+	cerebrasDefaultModelId,
 	chutesDefaultModelId,
 	bedrockDefaultModelId,
 	vertexDefaultModelId,
+	sambaNovaDefaultModelId,
+	internationalZAiDefaultModelId,
+	mainlandZAiDefaultModelId,
+	fireworksDefaultModelId,
 } from "@roo-code/types"
 
 import { vscode } from "@src/utils/vscode"
@@ -54,9 +60,11 @@ import {
 import {
 	Anthropic,
 	Bedrock,
+	Cerebras,
 	Chutes,
 	ClaudeCode,
 	DeepSeek,
+	Doubao,
 	Gemini,
 	GeminiCli,
 	Glama,
@@ -71,10 +79,13 @@ import {
 	OpenAICompatible,
 	OpenRouter,
 	Requesty,
+	SambaNova,
 	Unbound,
 	Vertex,
 	VSCodeLM,
 	XAI,
+	ZAi,
+	Fireworks,
 } from "./providers"
 
 import { MODELS_BY_PROVIDER, PROVIDERS } from "./constants"
@@ -288,11 +299,13 @@ const ApiOptions = ({
 				requesty: { field: "requestyModelId", default: requestyDefaultModelId },
 				litellm: { field: "litellmModelId", default: litellmDefaultModelId },
 				anthropic: { field: "apiModelId", default: anthropicDefaultModelId },
+				cerebras: { field: "apiModelId", default: cerebrasDefaultModelId },
 				"claude-code": { field: "apiModelId", default: claudeCodeDefaultModelId },
 				"openai-native": { field: "apiModelId", default: openAiNativeDefaultModelId },
 				gemini: { field: "apiModelId", default: geminiDefaultModelId },
 				"gemini-cli": { field: "apiModelId", default: geminiCliDefaultModelId },
 				deepseek: { field: "apiModelId", default: deepSeekDefaultModelId },
+				doubao: { field: "apiModelId", default: doubaoDefaultModelId },
 				moonshot: { field: "apiModelId", default: moonshotDefaultModelId },
 				mistral: { field: "apiModelId", default: mistralDefaultModelId },
 				xai: { field: "apiModelId", default: xaiDefaultModelId },
@@ -300,6 +313,15 @@ const ApiOptions = ({
 				chutes: { field: "apiModelId", default: chutesDefaultModelId },
 				bedrock: { field: "apiModelId", default: bedrockDefaultModelId },
 				vertex: { field: "apiModelId", default: vertexDefaultModelId },
+				sambanova: { field: "apiModelId", default: sambaNovaDefaultModelId },
+				zai: {
+					field: "apiModelId",
+					default:
+						apiConfiguration.zaiApiLine === "china"
+							? mainlandZAiDefaultModelId
+							: internationalZAiDefaultModelId,
+				},
+				fireworks: { field: "apiModelId", default: fireworksDefaultModelId },
 				openai: { field: "openAiModelId" },
 				ollama: { field: "ollamaModelId" },
 				lmstudio: { field: "lmStudioModelId" },
@@ -451,7 +473,11 @@ const ApiOptions = ({
 			)}
 
 			{selectedProvider === "gemini" && (
-				<Gemini apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
+				<Gemini
+					apiConfiguration={apiConfiguration}
+					setApiConfigurationField={setApiConfigurationField}
+					fromWelcomeView={fromWelcomeView}
+				/>
 			)}
 
 			{selectedProvider === "gemini-cli" && (
@@ -473,6 +499,10 @@ const ApiOptions = ({
 
 			{selectedProvider === "deepseek" && (
 				<DeepSeek apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
+			)}
+
+			{selectedProvider === "doubao" && (
+				<Doubao apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
 			)}
 
 			{selectedProvider === "moonshot" && (
@@ -499,6 +529,10 @@ const ApiOptions = ({
 				<HuggingFace apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
 			)}
 
+			{selectedProvider === "cerebras" && (
+				<Cerebras apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
+			)}
+
 			{selectedProvider === "chutes" && (
 				<Chutes apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
 			)}
@@ -512,6 +546,14 @@ const ApiOptions = ({
 				/>
 			)}
 
+			{selectedProvider === "sambanova" && (
+				<SambaNova apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
+			)}
+
+			{selectedProvider === "zai" && (
+				<ZAi apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
+			)}
+
 			{selectedProvider === "human-relay" && (
 				<>
 					<div className="text-sm text-vscode-descriptionForeground">
@@ -521,6 +563,10 @@ const ApiOptions = ({
 						{t("settings:providers.humanRelay.instructions")}
 					</div>
 				</>
+			)}
+
+			{selectedProvider === "fireworks" && (
+				<Fireworks apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
 			)}
 
 			{selectedProviderModels.length > 0 && (

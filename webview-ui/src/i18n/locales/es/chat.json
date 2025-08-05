@@ -4,10 +4,11 @@
 		"title": "Tarea",
 		"seeMore": "Ver más",
 		"seeLess": "Ver menos",
-		"tokens": "Tokens:",
-		"cache": "Caché:",
-		"apiCost": "Costo de API:",
-		"contextWindow": "Longitud del contexto:",
+		"tokens": "Tokens",
+		"cache": "Caché",
+		"apiCost": "Costo de API",
+		"size": "Tamaño",
+		"contextWindow": "Longitud del contexto",
 		"closeAndStart": "Cerrar tarea e iniciar una nueva",
 		"export": "Exportar historial de tareas",
 		"delete": "Eliminar tarea (Shift + Clic para omitir confirmación)",
@@ -139,7 +140,6 @@
 		"streamingFailed": "Transmisión API falló"
 	},
 	"checkpoint": {
-		"initial": "Punto de control inicial",
 		"regular": "Punto de control",
 		"initializingWarning": "Todavía inicializando el punto de control... Si esto tarda demasiado, puedes desactivar los puntos de control en la <settingsLink>configuración</settingsLink> y reiniciar tu tarea.",
 		"menu": {
@@ -265,9 +265,9 @@
 		"title": "🎉 Roo Code {{version}} publicado",
 		"description": "Roo Code {{version}} trae poderosas nuevas funcionalidades y mejoras significativas para mejorar tu flujo de trabajo de desarrollo.",
 		"whatsNew": "Novedades",
-		"feature1": "<bold>Proveedor de Hugging Face</bold>: Accede a toneladas de excelentes modelos de código abierto directamente a través del nuevo proveedor de Hugging Face con integración perfecta y selección de modelos.",
-		"feature2": "<bold>Controles de Comando en Línea</bold>: Nuevos controles de auto-aprobación y denegación para la ejecución de comandos te dan control preciso sobre las operaciones de terminal con permisos personalizables.",
-		"feature3": "<bold>Soporte para Reglas AGENTS.md</bold>: Añade soporte para un archivo AGENTS.md estándar de la comunidad en la raíz del proyecto.",
+		"feature1": "<bold>Cola de Mensajes</bold>: Pon en cola múltiples mensajes mientras Roo está trabajando, permitiéndote continuar planificando tu flujo de trabajo sin interrupciones.",
+		"feature2": "<bold>Comandos de Barra Personalizados</bold>: Crea comandos de barra personalizados para acceso rápido a prompts y flujos de trabajo utilizados frecuentemente, con gestión completa de la interfaz de usuario.",
+		"feature3": "<bold>Herramientas Gemini Mejoradas</bold>: Nuevas capacidades de contexto de URL y fundamentación de búsqueda de Google proporcionan a los modelos Gemini información web en tiempo real y capacidades de investigación mejoradas.",
 		"hideButton": "Ocultar anuncio",
 		"detailsDiscussLinks": "Obtén más detalles y participa en <discordLink>Discord</discordLink> y <redditLink>Reddit</redditLink> 🚀"
 	},
@@ -314,6 +314,11 @@
 			"title": "Límite de Solicitudes Auto-aprobadas Alcanzado",
 			"description": "Roo ha alcanzado el límite auto-aprobado de {{count}} solicitud(es) API. ¿Deseas reiniciar el contador y continuar con la tarea?",
 			"button": "Reiniciar y Continuar"
+		},
+		"autoApprovedCostLimitReached": {
+			"title": "Límite de Costo Auto-Aprobado Alcanzado",
+			"description": "Roo ha alcanzado el límite de costo autoaprobado de ${{count}}. ¿Le gustaría reiniciar el costo y continuar con la tarea?",
+			"button": "Reiniciar y continuar"
 		}
 	},
 	"codebaseSearch": {
@@ -355,7 +360,7 @@
 	"slashCommands": {
 		"tooltip": "Gestionar comandos de barra",
 		"title": "Comandos de Barra",
-		"description": "Crea comandos de barra personalizados para acceder rápidamente a prompts y flujos de trabajo utilizados con frecuencia.",
+		"description": "Crea comandos de barra personalizados para acceder rápidamente a prompts y flujos de trabajo utilizados con frecuencia. <DocsLink>Documentación</DocsLink>",
 		"globalCommands": "Comandos Globales",
 		"workspaceCommands": "Comandos del Espacio de Trabajo",
 		"globalCommand": "Comando global",

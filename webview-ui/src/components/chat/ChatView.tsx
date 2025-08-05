@@ -731,12 +731,12 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							text: trimmedInput,
 							images: images,
 						})
+						// Clear input state after sending
+						setInputValue("")
+						setSelectedImages([])
 					} else {
 						vscode.postMessage({ type: "askResponse", askResponse: "yesButtonClicked" })
 					}
-					// Clear input state after sending
-					setInputValue("")
-					setSelectedImages([])
 					break
 				case "completion_result":
 				case "resume_completed_task":
@@ -786,13 +786,13 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							text: trimmedInput,
 							images: images,
 						})
+						// Clear input state after sending
+						setInputValue("")
+						setSelectedImages([])
 					} else {
 						// Responds to the API with a "This operation failed" and lets it try again
 						vscode.postMessage({ type: "askResponse", askResponse: "noButtonClicked" })
 					}
-					// Clear input state after sending
-					setInputValue("")
-					setSelectedImages([])
 					break
 				case "command_output":
 					vscode.postMessage({ type: "terminalOperation", terminalOperation: "abort" })
@@ -805,14 +805,11 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		[clineAsk, startNewTask, isStreaming],
 	)
 
-	const handleTaskCloseButtonClick = useCallback(() => startNewTask(), [startNewTask])
-
 	const { info: model } = useSelectedModel(apiConfiguration)
 
 	const selectImages = useCallback(() => vscode.postMessage({ type: "selectImages" }), [])
 
-	const shouldDisableImages =
-		!model?.supportsImages || sendingDisabled || selectedImages.length >= MAX_IMAGES_PER_MESSAGE
+	const shouldDisableImages = !model?.supportsImages || selectedImages.length >= MAX_IMAGES_PER_MESSAGE
 
 	const handleMessage = useCallback(
 		(e: MessageEvent) => {
@@ -1766,7 +1763,6 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						contextTokens={apiMetrics.contextTokens}
 						buttonsDisabled={sendingDisabled}
 						handleCondenseContext={handleCondenseContext}
-						onClose={handleTaskCloseButtonClick}
 						todos={latestTodos}
 					/>
 
