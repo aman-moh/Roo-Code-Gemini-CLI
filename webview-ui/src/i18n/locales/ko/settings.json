@@ -421,6 +421,21 @@
 			"placeholder": "기본값: claude",
 			"maxTokensLabel": "최대 출력 토큰",
 			"maxTokensDescription": "Claude Code 응답의 최대 출력 토큰 수. 기본값은 8000입니다."
+		},
+		"geminiCli": {
+			"description": "이 공급자는 Gemini CLI 도구의 OAuth 인증을 사용하며 API 키가 필요하지 않습니다.",
+			"oauthPath": "OAuth 자격 증명 경로 (선택사항)",
+			"oauthPathDescription": "OAuth 자격 증명 파일의 경로입니다. 기본 위치(~/.gemini/oauth_creds.json)를 사용하려면 비워두세요.",
+			"instructions": "아직 인증하지 않았다면",
+			"instructionsContinued": "를 터미널에서 먼저 실행하세요.",
+			"setupLink": "Gemini CLI 설정 지침",
+			"requirementsTitle": "중요한 요구사항",
+			"requirement1": "먼저 Gemini CLI 도구를 설치해야 합니다",
+			"requirement2": "그 다음 터미널에서 gemini를 실행하고 Google로 로그인했는지 확인하세요",
+			"requirement3": "개인 Google 계정에서만 작동합니다 (Google Workspace 계정 불가)",
+			"requirement4": "API 키를 사용하지 않습니다 - 인증은 OAuth를 통해 처리됩니다",
+			"requirement5": "Gemini CLI 도구가 먼저 설치되고 인증되어야 합니다",
+			"freeAccess": "OAuth 인증을 통한 무료 액세스"
 		}
 	},
 	"browser": {
@@ -538,6 +553,16 @@
 			"profileDescription": "이 프로필만을 위한 사용자 정의 임계값 (글로벌 기본값 재정의)",
 			"inheritDescription": "이 프로필은 글로벌 기본 임계값을 상속합니다 ({{threshold}}%)",
 			"usesGlobal": "(글로벌 {{threshold}}% 사용)"
+		},
+		"maxImageFileSize": {
+			"label": "최대 이미지 파일 크기",
+			"mb": "MB",
+			"description": "read file 도구로 처리할 수 있는 이미지 파일의 최대 크기(MB 단위)입니다."
+		},
+		"maxTotalImageSize": {
+			"label": "최대 총 이미지 크기",
+			"mb": "MB",
+			"description": "단일 read_file 작업에서 처리되는 모든 이미지의 최대 누적 크기 제한(MB 단위)입니다. 여러 이미지를 읽을 때 각 이미지의 크기가 총계에 추가됩니다. 다른 이미지를 포함하면 이 제한을 초과하는 경우 해당 이미지는 건너뜁니다."
 		}
 	},
 	"terminal": {
@@ -660,6 +685,10 @@
 		"MULTI_FILE_APPLY_DIFF": {
 			"name": "동시 파일 편집 활성화",
 			"description": "활성화하면 Roo가 단일 요청으로 여러 파일을 편집할 수 있습니다. 비활성화하면 Roo는 파일을 하나씩 편집해야 합니다. 이 기능을 비활성화하면 덜 강력한 모델로 작업하거나 파일 수정에 대한 더 많은 제어가 필요할 때 도움이 됩니다."
+		},
+		"PREVENT_FOCUS_DISRUPTION": {
+			"name": "백그라운드 편집",
+			"description": "활성화하면 편집기 포커스 방해를 방지합니다. 파일 편집이 diff 뷰를 열거나 포커스를 빼앗지 않고 백그라운드에서 수행됩니다. Roo가 변경사항을 적용하는 동안 방해받지 않고 계속 작업할 수 있습니다. 파일은 진단을 캡처하기 위해 포커스 없이 열거나 완전히 닫힌 상태로 유지할 수 있습니다."
 		}
 	},
 	"promptCaching": {

@@ -421,6 +421,21 @@
 			"placeholder": "預設：claude",
 			"maxTokensLabel": "最大輸出 Token",
 			"maxTokensDescription": "Claude Code 回應的最大輸出 Token 數量。預設為 8000。"
+		},
+		"geminiCli": {
+			"description": "此提供商使用 Gemini CLI 工具的 OAuth 身份驗證，不需要 API 金鑰。",
+			"oauthPath": "OAuth 憑證路徑（可選）",
+			"oauthPathDescription": "OAuth 憑證檔案的路徑。留空以使用預設位置（~/.gemini/oauth_creds.json）。",
+			"instructions": "如果您尚未進行身份驗證，請先執行",
+			"instructionsContinued": "在您的終端機中。",
+			"setupLink": "Gemini CLI 設定說明",
+			"requirementsTitle": "重要要求",
+			"requirement1": "首先，您需要安裝 Gemini CLI 工具",
+			"requirement2": "然後，在終端機中執行 gemini 並確保使用 Google 登入",
+			"requirement3": "僅適用於個人 Google 帳戶（不支援 Google Workspace 帳戶）",
+			"requirement4": "不使用 API 金鑰 - 身份驗證透過 OAuth 處理",
+			"requirement5": "需要先安裝並驗證 Gemini CLI 工具",
+			"freeAccess": "透過 OAuth 身份驗證免費存取"
 		}
 	},
 	"browser": {
@@ -538,6 +553,16 @@
 			"profileDescription": "僅此檔案的自訂閾值（覆蓋全域預設）",
 			"inheritDescription": "此檔案繼承全域預設閾值（{{threshold}}%）",
 			"usesGlobal": "（使用全域 {{threshold}}%）"
+		},
+		"maxImageFileSize": {
+			"label": "最大圖像檔案大小",
+			"mb": "MB",
+			"description": "read file工具可以處理的圖像檔案的最大大小（以MB為單位）。"
+		},
+		"maxTotalImageSize": {
+			"label": "圖片總大小上限",
+			"mb": "MB",
+			"description": "單次 read_file 操作中處理的所有圖片的最大累計大小限制（MB）。讀取多張圖片時，每張圖片的大小會累加到總大小中。如果包含另一張圖片會超過此限制，則會跳過該圖片。"
 		}
 	},
 	"terminal": {
@@ -660,6 +685,10 @@
 		"MULTI_FILE_APPLY_DIFF": {
 			"name": "啟用並行檔案編輯",
 			"description": "啟用後 Roo 可在單個請求中編輯多個檔案。停用後 Roo 必須逐個編輯檔案。停用此功能有助於使用能力較弱的模型或需要更精確控制檔案修改時。"
+		},
+		"PREVENT_FOCUS_DISRUPTION": {
+			"name": "背景編輯",
+			"description": "啟用後可防止編輯器焦點中斷。檔案編輯會在背景進行，不會開啟 diff 檢視或搶奪焦點。您可以在 Roo 進行變更時繼續不受干擾地工作。檔案可能會在不獲得焦點的情況下開啟以捕獲診斷，或保持完全關閉。"
 		}
 	},
 	"promptCaching": {
