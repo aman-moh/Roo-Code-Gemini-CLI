@@ -127,6 +127,7 @@
 	},
 	"autoApprove": {
 		"description": "Allow Roo to automatically perform operations without requiring approval. Enable these settings only if you fully trust the AI and understand the associated security risks.",
+		"enabled": "Auto-Approve Enabled",
 		"readOnly": {
 			"label": "Read",
 			"description": "When enabled, Roo will automatically view directory contents and read files without requiring you to click the Approve button.",
@@ -191,9 +192,15 @@
 			"description": "Automatically update the to-do list without requiring approval"
 		},
 		"apiRequestLimit": {
-			"title": "Max Requests",
-			"description": "Automatically make this many API requests before asking for approval to continue with the task.",
+			"title": "Max Count",
 			"unlimited": "Unlimited"
+		},
+		"apiCostLimit": {
+			"title": "Max Cost",
+			"unlimited": "Unlimited"
+		},
+		"maxLimits": {
+			"description": "Automatically make requests up to these limits before asking for approval to continue."
 		},
 		"toggleAriaLabel": "Toggle auto-approval",
 		"disabledAriaLabel": "Auto-approval disabled - select options first",
@@ -245,20 +252,41 @@
 			"error": "Failed to refresh models list. Please try again."
 		},
 		"getRequestyApiKey": "Get Requesty API Key",
+		"getRequestyBaseUrl": "Base URL",
+		"requestyUseCustomBaseUrl": "Use custom base URL",
 		"openRouterTransformsText": "Compress prompts and message chains to the context size (<a>OpenRouter Transforms</a>)",
 		"anthropicApiKey": "Anthropic API Key",
 		"getAnthropicApiKey": "Get Anthropic API Key",
 		"anthropicUseAuthToken": "Pass Anthropic API Key as Authorization header instead of X-Api-Key",
+		"anthropic1MContextBetaLabel": "Enable 1M context window (Beta)",
+		"anthropic1MContextBetaDescription": "Extends context window to 1 million tokens for Claude Sonnet 4",
+		"awsBedrock1MContextBetaLabel": "Enable 1M context window (Beta)",
+		"awsBedrock1MContextBetaDescription": "Extends context window to 1 million tokens for Claude Sonnet 4",
+		"cerebrasApiKey": "Cerebras API Key",
+		"getCerebrasApiKey": "Get Cerebras API Key",
 		"chutesApiKey": "Chutes API Key",
 		"getChutesApiKey": "Get Chutes API Key",
+		"fireworksApiKey": "Fireworks API Key",
+		"getFireworksApiKey": "Get Fireworks API Key",
+		"ioIntelligenceApiKey": "IO Intelligence API Key",
+		"ioIntelligenceApiKeyPlaceholder": "Enter your IO Intelligence API key",
+		"getIoIntelligenceApiKey": "Get IO Intelligence API Key",
 		"deepSeekApiKey": "DeepSeek API Key",
 		"getDeepSeekApiKey": "Get DeepSeek API Key",
+		"doubaoApiKey": "Doubao API Key",
+		"getDoubaoApiKey": "Get Doubao API Key",
 		"moonshotApiKey": "Moonshot API Key",
 		"getMoonshotApiKey": "Get Moonshot API Key",
 		"moonshotBaseUrl": "Moonshot Entrypoint",
+		"zaiApiKey": "Z AI API Key",
+		"getZaiApiKey": "Get Z AI API Key",
+		"zaiEntrypoint": "Z AI Entrypoint",
+		"zaiEntrypointDescription": "Please select the appropriate API entrypoint based on your location. If you are in China, choose open.bigmodel.cn. Otherwise, choose api.z.ai.",
 		"geminiApiKey": "Gemini API Key",
 		"getGroqApiKey": "Get Groq API Key",
 		"groqApiKey": "Groq API Key",
+		"getSambaNovaApiKey": "Get SambaNova API Key",
+		"sambaNovaApiKey": "SambaNova API Key",
 		"getHuggingFaceApiKey": "Get Hugging Face API Key",
 		"huggingFaceApiKey": "Hugging Face API Key",
 		"huggingFaceModelId": "Model ID",
@@ -348,6 +376,10 @@
 			"description": "No API key is required, but the user needs to help copy and paste the information to the web chat AI.",
 			"instructions": "During use, a dialog box will pop up and the current message will be copied to the clipboard automatically. You need to paste these to web versions of AI (such as ChatGPT or Claude), then copy the AI's reply back to the dialog box and click the confirm button."
 		},
+		"roo": {
+			"authenticatedMessage": "Securely authenticated through your Roo Code Cloud account.",
+			"connectButton": "Connect to Roo Code Cloud"
+		},
 		"openRouter": {
 			"providerRouting": {
 				"title": "OpenRouter Provider Routing",
@@ -409,9 +441,17 @@
 		},
 		"reasoningEffort": {
 			"label": "Model Reasoning Effort",
+			"minimal": "Minimal (Fastest)",
+			"low": "Low",
+			"medium": "Medium",
+			"high": "High"
+		},
+		"verbosity": {
+			"label": "Output Verbosity",
 			"high": "High",
 			"medium": "Medium",
-			"low": "Low"
+			"low": "Low",
+			"description": "Controls how detailed the model's responses are. Low verbosity produces concise answers, while high verbosity provides thorough explanations."
 		},
 		"setReasoningLevel": "Enable Reasoning Effort",
 		"claudeCode": {
@@ -687,6 +727,10 @@
 		"PREVENT_FOCUS_DISRUPTION": {
 			"name": "Background editing",
 			"description": "Prevent editor focus disruption when enabled. File edits happen in the background without opening diff views or stealing focus. You can continue working uninterrupted while Roo makes changes. Files can be opened without focus to capture diagnostics or kept closed entirely."
+		},
+		"ASSISTANT_MESSAGE_PARSER": {
+			"name": "Use new message parser",
+			"description": "Enable the experimental streaming message parser that provides significant performance improvements for long assistant responses by processing messages more efficiently."
 		}
 	},
 	"promptCaching": {
@@ -705,6 +749,7 @@
 		"noComputerUse": "Does not support computer use",
 		"supportsPromptCache": "Supports prompt caching",
 		"noPromptCache": "Does not support prompt caching",
+		"contextWindow": "Context Window:",
 		"maxOutput": "Max output",
 		"inputPrice": "Input price",
 		"outputPrice": "Output price",

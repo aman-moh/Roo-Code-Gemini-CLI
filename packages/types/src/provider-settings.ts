@@ -1,7 +1,15 @@
 import { z } from "zod"
 
-import { reasoningEffortsSchema, modelInfoSchema } from "./model.js"
+import { reasoningEffortsSchema, verbosityLevelsSchema, modelInfoSchema } from "./model.js"
 import { codebaseIndexProviderSchema } from "./codebase-index.js"
+
+// Bedrock Claude Sonnet 4 model ID that supports 1M context
+export const BEDROCK_CLAUDE_SONNET_4_MODEL_ID = "anthropic.claude-sonnet-4-20250514-v1:0"
+
+// Extended schema that includes "minimal" for GPT-5 models
+export const extendedReasoningEffortsSchema = z.union([reasoningEffortsSchema, z.literal("minimal")])
+
+export type ReasoningEffortWithMinimal = z.infer<typeof extendedReasoningEffortsSchema>
 
 /**
  * ProviderName
@@ -24,6 +32,7 @@ export const providerNames = [
 	"mistral",
 	"moonshot",
 	"deepseek",
+	"doubao",
 	"unbound",
 	"requesty",
 	"human-relay",
@@ -33,6 +42,12 @@ export const providerNames = [
 	"chutes",
 	"litellm",
 	"huggingface",
+	"cerebras",
+	"sambanova",
+	"zai",
+	"fireworks",
+	"io-intelligence",
+	"roo",
 ] as const
 
 export const providerNamesSchema = z.enum(providerNames)
@@ -71,9 +86,12 @@ const baseProviderSettingsSchema = z.object({
 
 	// Model reasoning.
 	enableReasoningEffort: z.boolean().optional(),
-	reasoningEffort: reasoningEffortsSchema.optional(),
+	reasoningEffort: extendedReasoningEffortsSchema.optional(),
 	modelMaxTokens: z.number().optional(),
 	modelMaxThinkingTokens: z.number().optional(),
+
+	// Model verbosity.
+	verbosity: verbosityLevelsSchema.optional(),
 })
 
 // Several of the providers share common model config properties.
@@ -85,6 +103,7 @@ const anthropicSchema = apiModelIdProviderModelSchema.extend({
 	apiKey: z.string().optional(),
 	anthropicBaseUrl: z.string().optional(),
 	anthropicUseAuthToken: z.boolean().optional(),
+	anthropicBeta1MContext: z.boolean().optional(), // Enable 'context-1m-2025-08-07' beta for 1M context window
 })
 
 const claudeCodeSchema = apiModelIdProviderModelSchema.extend({
@@ -120,6 +139,7 @@ const bedrockSchema = apiModelIdProviderModelSchema.extend({
 	awsModelContextWindow: z.number().optional(),
 	awsBedrockEndpointEnabled: z.boolean().optional(),
 	awsBedrockEndpoint: z.string().optional(),
+	awsBedrock1MContext: z.boolean().optional(), // Enable 'context-1m-2025-08-07' beta for 1M context window
 })
 
 const vertexSchema = apiModelIdProviderModelSchema.extend({
@@ -193,6 +213,11 @@ const deepSeekSchema = apiModelIdProviderModelSchema.extend({
 	deepSeekApiKey: z.string().optional(),
 })
 
+const doubaoSchema = apiModelIdProviderModelSchema.extend({
+	doubaoBaseUrl: z.string().optional(),
+	doubaoApiKey: z.string().optional(),
+})
+
 const moonshotSchema = apiModelIdProviderModelSchema.extend({
 	moonshotBaseUrl: z
 		.union([z.literal("https://api.moonshot.ai/v1"), z.literal("https://api.moonshot.cn/v1")])
@@ -206,6 +231,7 @@ const unboundSchema = baseProviderSettingsSchema.extend({
 })
 
 const requestySchema = baseProviderSettingsSchema.extend({
+	requestyBaseUrl: z.string().optional(),
 	requestyApiKey: z.string().optional(),
 	requestyModelId: z.string().optional(),
 })
@@ -241,6 +267,32 @@ const litellmSchema = baseProviderSettingsSchema.extend({
 	litellmUsePromptCache: z.boolean().optional(),
 })
 
+const cerebrasSchema = apiModelIdProviderModelSchema.extend({
+	cerebrasApiKey: z.string().optional(),
+})
+
+const sambaNovaSchema = apiModelIdProviderModelSchema.extend({
+	sambaNovaApiKey: z.string().optional(),
+})
+
+const zaiSchema = apiModelIdProviderModelSchema.extend({
+	zaiApiKey: z.string().optional(),
+	zaiApiLine: z.union([z.literal("china"), z.literal("international")]).optional(),
+})
+
+const fireworksSchema = apiModelIdProviderModelSchema.extend({
+	fireworksApiKey: z.string().optional(),
+})
+
+const ioIntelligenceSchema = apiModelIdProviderModelSchema.extend({
+	ioIntelligenceModelId: z.string().optional(),
+	ioIntelligenceApiKey: z.string().optional(),
+})
+
+const rooSchema = apiModelIdProviderModelSchema.extend({
+	// No additional fields needed - uses cloud authentication
+})
+
 const defaultSchema = z.object({
 	apiProvider: z.undefined(),
 })
@@ -261,6 +313,7 @@ export const providerSettingsSchemaDiscriminated = z.discriminatedUnion("apiProv
 	openAiNativeSchema.merge(z.object({ apiProvider: z.literal("openai-native") })),
 	mistralSchema.merge(z.object({ apiProvider: z.literal("mistral") })),
 	deepSeekSchema.merge(z.object({ apiProvider: z.literal("deepseek") })),
+	doubaoSchema.merge(z.object({ apiProvider: z.literal("doubao") })),
 	moonshotSchema.merge(z.object({ apiProvider: z.literal("moonshot") })),
 	unboundSchema.merge(z.object({ apiProvider: z.literal("unbound") })),
 	requestySchema.merge(z.object({ apiProvider: z.literal("requesty") })),
@@ -271,6 +324,12 @@ export const providerSettingsSchemaDiscriminated = z.discriminatedUnion("apiProv
 	huggingFaceSchema.merge(z.object({ apiProvider: z.literal("huggingface") })),
 	chutesSchema.merge(z.object({ apiProvider: z.literal("chutes") })),
 	litellmSchema.merge(z.object({ apiProvider: z.literal("litellm") })),
+	cerebrasSchema.merge(z.object({ apiProvider: z.literal("cerebras") })),
+	sambaNovaSchema.merge(z.object({ apiProvider: z.literal("sambanova") })),
+	zaiSchema.merge(z.object({ apiProvider: z.literal("zai") })),
+	fireworksSchema.merge(z.object({ apiProvider: z.literal("fireworks") })),
+	ioIntelligenceSchema.merge(z.object({ apiProvider: z.literal("io-intelligence") })),
+	rooSchema.merge(z.object({ apiProvider: z.literal("roo") })),
 	defaultSchema,
 ])
 
@@ -291,6 +350,7 @@ export const providerSettingsSchema = z.object({
 	...openAiNativeSchema.shape,
 	...mistralSchema.shape,
 	...deepSeekSchema.shape,
+	...doubaoSchema.shape,
 	...moonshotSchema.shape,
 	...unboundSchema.shape,
 	...requestySchema.shape,
@@ -301,10 +361,23 @@ export const providerSettingsSchema = z.object({
 	...huggingFaceSchema.shape,
 	...chutesSchema.shape,
 	...litellmSchema.shape,
+	...cerebrasSchema.shape,
+	...sambaNovaSchema.shape,
+	...zaiSchema.shape,
+	...fireworksSchema.shape,
+	...ioIntelligenceSchema.shape,
+	...rooSchema.shape,
 	...codebaseIndexProviderSchema.shape,
 })
 
 export type ProviderSettings = z.infer<typeof providerSettingsSchema>
+
+export const providerSettingsWithIdSchema = providerSettingsSchema.extend({ id: z.string().optional() })
+export const discriminatedProviderSettingsWithIdSchema = providerSettingsSchemaDiscriminated.and(
+	z.object({ id: z.string().optional() }),
+)
+export type ProviderSettingsWithId = z.infer<typeof providerSettingsWithIdSchema>
+
 export const PROVIDER_SETTINGS_KEYS = providerSettingsSchema.keyof().options
 
 export const MODEL_ID_KEYS: Partial<keyof ProviderSettings>[] = [
@@ -319,6 +392,7 @@ export const MODEL_ID_KEYS: Partial<keyof ProviderSettings>[] = [
 	"requestyModelId",
 	"litellmModelId",
 	"huggingFaceModelId",
+	"ioIntelligenceModelId",
 ]
 
 export const getModelId = (settings: ProviderSettings): string | undefined => {

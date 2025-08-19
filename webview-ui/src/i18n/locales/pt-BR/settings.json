@@ -127,6 +127,7 @@
 	},
 	"autoApprove": {
 		"description": "Permitir que o Roo realize operações automaticamente sem exigir aprovação. Ative essas configurações apenas se confiar totalmente na IA e compreender os riscos de segurança associados.",
+		"enabled": "Aprovação automática habilitada",
 		"toggleAriaLabel": "Alternar aprovação automática",
 		"disabledAriaLabel": "Aprovação automática desativada - selecione as opções primeiro",
 		"readOnly": {
@@ -197,7 +198,14 @@
 			"description": "Fazer automaticamente este número de requisições à API antes de pedir aprovação para continuar com a tarefa.",
 			"unlimited": "Ilimitado"
 		},
-		"selectOptionsFirst": "Selecione pelo menos uma opção abaixo para habilitar a aprovação automática"
+		"selectOptionsFirst": "Selecione pelo menos uma opção abaixo para habilitar a aprovação automática",
+		"apiCostLimit": {
+			"title": "Custo máximo",
+			"unlimited": "Ilimitado"
+		},
+		"maxLimits": {
+			"description": "Fazer solicitações automaticamente até estes limites antes de pedir aprovação para continuar."
+		}
 	},
 	"providers": {
 		"providerDocumentation": "Documentação do {{provider}}",
@@ -245,20 +253,41 @@
 			"error": "Falha ao atualizar a lista de modelos. Por favor, tente novamente."
 		},
 		"getRequestyApiKey": "Obter chave de API Requesty",
+		"getRequestyBaseUrl": "URL Base",
+		"requestyUseCustomBaseUrl": "Usar URL base personalizada",
 		"openRouterTransformsText": "Comprimir prompts e cadeias de mensagens para o tamanho do contexto (<a>Transformações OpenRouter</a>)",
 		"anthropicApiKey": "Chave de API Anthropic",
 		"getAnthropicApiKey": "Obter chave de API Anthropic",
 		"anthropicUseAuthToken": "Passar a chave de API Anthropic como cabeçalho Authorization em vez de X-Api-Key",
+		"anthropic1MContextBetaLabel": "Ativar janela de contexto de 1M (Beta)",
+		"anthropic1MContextBetaDescription": "Estende a janela de contexto para 1 milhão de tokens para o Claude Sonnet 4",
+		"awsBedrock1MContextBetaLabel": "Ativar janela de contexto de 1M (Beta)",
+		"awsBedrock1MContextBetaDescription": "Estende a janela de contexto para 1 milhão de tokens para o Claude Sonnet 4",
+		"cerebrasApiKey": "Chave de API Cerebras",
+		"getCerebrasApiKey": "Obter chave de API Cerebras",
 		"chutesApiKey": "Chave de API Chutes",
 		"getChutesApiKey": "Obter chave de API Chutes",
+		"fireworksApiKey": "Chave de API Fireworks",
+		"getFireworksApiKey": "Obter chave de API Fireworks",
+		"ioIntelligenceApiKey": "Chave de API IO Intelligence",
+		"ioIntelligenceApiKeyPlaceholder": "Insira sua chave de API da IO Intelligence",
+		"getIoIntelligenceApiKey": "Obter chave de API IO Intelligence",
 		"deepSeekApiKey": "Chave de API DeepSeek",
 		"getDeepSeekApiKey": "Obter chave de API DeepSeek",
+		"doubaoApiKey": "Chave de API Doubao",
+		"getDoubaoApiKey": "Obter chave de API Doubao",
 		"moonshotApiKey": "Chave de API Moonshot",
 		"getMoonshotApiKey": "Obter chave de API Moonshot",
 		"moonshotBaseUrl": "Ponto de entrada Moonshot",
+		"zaiApiKey": "Chave de API Z AI",
+		"getZaiApiKey": "Obter chave de API Z AI",
+		"zaiEntrypoint": "Ponto de entrada Z AI",
+		"zaiEntrypointDescription": "Selecione o ponto de entrada da API apropriado com base na sua localização. Se você estiver na China, escolha open.bigmodel.cn. Caso contrário, escolha api.z.ai.",
 		"geminiApiKey": "Chave de API Gemini",
 		"getGroqApiKey": "Obter chave de API Groq",
 		"groqApiKey": "Chave de API Groq",
+		"getSambaNovaApiKey": "Obter chave de API SambaNova",
+		"sambaNovaApiKey": "Chave de API SambaNova",
 		"getGeminiApiKey": "Obter chave de API Gemini",
 		"getHuggingFaceApiKey": "Obter chave de API Hugging Face",
 		"huggingFaceApiKey": "Chave de API Hugging Face",
@@ -314,7 +343,6 @@
 				"description": "Permite que o Gemini pesquise informações atuais no Google e fundamente as respostas em dados em tempo real. Útil para consultas que requerem informações atualizadas."
 			}
 		},
-
 		"googleCloudSetup": {
 			"title": "Para usar o Google Cloud Vertex AI, você precisa:",
 			"step1": "1. Criar uma conta Google Cloud, ativar a API Vertex AI e ativar os modelos Claude desejados.",
@@ -348,6 +376,10 @@
 		"humanRelay": {
 			"description": "Não é necessária chave de API, mas o usuário precisa ajudar a copiar e colar as informações para a IA do chat web.",
 			"instructions": "Durante o uso, uma caixa de diálogo será exibida e a mensagem atual será copiada para a área de transferência automaticamente. Você precisa colar isso nas versões web de IA (como ChatGPT ou Claude), depois copiar a resposta da IA de volta para a caixa de diálogo e clicar no botão confirmar."
+		},
+		"roo": {
+			"authenticatedMessage": "Autenticado com segurança através da sua conta Roo Code Cloud.",
+			"connectButton": "Conectar ao Roo Code Cloud"
 		},
 		"openRouter": {
 			"providerRouting": {
@@ -410,9 +442,17 @@
 		},
 		"reasoningEffort": {
 			"label": "Esforço de raciocínio do modelo",
+			"minimal": "Mínimo (mais rápido)",
 			"high": "Alto",
 			"medium": "Médio",
 			"low": "Baixo"
+		},
+		"verbosity": {
+			"label": "Verbosidade da saída",
+			"high": "Alta",
+			"medium": "Média",
+			"low": "Baixa",
+			"description": "Controla o quão detalhadas são as respostas do modelo. A verbosidade baixa produz respostas concisas, enquanto a verbosidade alta fornisce explicações detalhadas."
 		},
 		"setReasoningLevel": "Habilitar esforço de raciocínio",
 		"claudeCode": {
@@ -689,6 +729,10 @@
 		"PREVENT_FOCUS_DISRUPTION": {
 			"name": "Edição em segundo plano",
 			"description": "Previne a interrupção do foco do editor quando habilitado. As edições de arquivos acontecem em segundo plano sem abrir visualizações de diferenças ou roubar o foco. Você pode continuar trabalhando sem interrupções enquanto o Roo faz alterações. Os arquivos podem ser abertos sem foco para capturar diagnósticos ou permanecer completamente fechados."
+		},
+		"ASSISTANT_MESSAGE_PARSER": {
+			"name": "Usar o novo parser de mensagens",
+			"description": "Ativa o parser de mensagens em streaming experimental que acelera respostas longas ao processar as mensagens de forma mais eficiente."
 		}
 	},
 	"promptCaching": {
@@ -707,6 +751,7 @@
 		"noComputerUse": "Não suporta uso do computador",
 		"supportsPromptCache": "Suporta cache de prompts",
 		"noPromptCache": "Não suporta cache de prompts",
+		"contextWindow": "Janela de Contexto:",
 		"maxOutput": "Saída máxima",
 		"inputPrice": "Preço de entrada",
 		"outputPrice": "Preço de saída",

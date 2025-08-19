@@ -127,6 +127,7 @@
 	},
 	"autoApprove": {
 		"description": "Erlaubt Roo, Operationen automatisch ohne Genehmigung durchzuführen. Aktiviere diese Einstellungen nur, wenn du der KI vollständig vertraust und die damit verbundenen Sicherheitsrisiken verstehst.",
+		"enabled": "Auto-Genehmigung aktiviert",
 		"toggleAriaLabel": "Automatische Genehmigung umschalten",
 		"disabledAriaLabel": "Automatische Genehmigung deaktiviert - zuerst Optionen auswählen",
 		"readOnly": {
@@ -197,7 +198,14 @@
 			"description": "Automatisch so viele API-Anfragen stellen, bevor du um die Erlaubnis gebeten wirst, mit der Aufgabe fortzufahren.",
 			"unlimited": "Unbegrenzt"
 		},
-		"selectOptionsFirst": "Wähle mindestens eine Option unten aus, um die automatische Genehmigung zu aktivieren"
+		"selectOptionsFirst": "Wähle mindestens eine Option unten aus, um die automatische Genehmigung zu aktivieren",
+		"apiCostLimit": {
+			"title": "Maximale Kosten",
+			"unlimited": "Unbegrenzt"
+		},
+		"maxLimits": {
+			"description": "Anfragen bis zu diesen Grenzwerten automatisch stellen, bevor um Genehmigung zur Fortsetzung gebeten wird."
+		}
 	},
 	"providers": {
 		"providerDocumentation": "{{provider}}-Dokumentation",
@@ -225,6 +233,8 @@
 		"awsCustomArnDesc": "Stellen Sie sicher, dass die Region in der ARN mit Ihrer oben ausgewählten AWS-Region übereinstimmt.",
 		"openRouterApiKey": "OpenRouter API-Schlüssel",
 		"getOpenRouterApiKey": "OpenRouter API-Schlüssel erhalten",
+		"doubaoApiKey": "Doubao API-Schlüssel",
+		"getDoubaoApiKey": "Doubao API-Schlüssel erhalten",
 		"apiKeyStorageNotice": "API-Schlüssel werden sicher im VSCode Secret Storage gespeichert",
 		"glamaApiKey": "Glama API-Schlüssel",
 		"getGlamaApiKey": "Glama API-Schlüssel erhalten",
@@ -245,20 +255,39 @@
 			"error": "Fehler beim Aktualisieren der Modellliste. Bitte versuche es erneut."
 		},
 		"getRequestyApiKey": "Requesty API-Schlüssel erhalten",
+		"getRequestyBaseUrl": "Basis-URL",
+		"requestyUseCustomBaseUrl": "Benutzerdefinierte Basis-URL verwenden",
 		"openRouterTransformsText": "Prompts und Nachrichtenketten auf Kontextgröße komprimieren (<a>OpenRouter Transformationen</a>)",
 		"anthropicApiKey": "Anthropic API-Schlüssel",
 		"getAnthropicApiKey": "Anthropic API-Schlüssel erhalten",
 		"anthropicUseAuthToken": "Anthropic API-Schlüssel als Authorization-Header anstelle von X-Api-Key übergeben",
+		"anthropic1MContextBetaLabel": "1M Kontextfenster aktivieren (Beta)",
+		"anthropic1MContextBetaDescription": "Erweitert das Kontextfenster für Claude Sonnet 4 auf 1 Million Token",
+		"awsBedrock1MContextBetaLabel": "1M Kontextfenster aktivieren (Beta)",
+		"awsBedrock1MContextBetaDescription": "Erweitert das Kontextfenster für Claude Sonnet 4 auf 1 Million Token",
+		"cerebrasApiKey": "Cerebras API-Schlüssel",
+		"getCerebrasApiKey": "Cerebras API-Schlüssel erhalten",
 		"chutesApiKey": "Chutes API-Schlüssel",
 		"getChutesApiKey": "Chutes API-Schlüssel erhalten",
+		"fireworksApiKey": "Fireworks API-Schlüssel",
+		"getFireworksApiKey": "Fireworks API-Schlüssel erhalten",
+		"ioIntelligenceApiKey": "IO Intelligence API-Schlüssel",
+		"ioIntelligenceApiKeyPlaceholder": "Gib deinen IO Intelligence API-Schlüssel ein",
+		"getIoIntelligenceApiKey": "IO Intelligence API-Schlüssel erhalten",
 		"deepSeekApiKey": "DeepSeek API-Schlüssel",
 		"getDeepSeekApiKey": "DeepSeek API-Schlüssel erhalten",
 		"moonshotApiKey": "Moonshot API-Schlüssel",
 		"getMoonshotApiKey": "Moonshot API-Schlüssel erhalten",
 		"moonshotBaseUrl": "Moonshot-Einstiegspunkt",
+		"zaiApiKey": "Z AI API-Schlüssel",
+		"getZaiApiKey": "Z AI API-Schlüssel erhalten",
+		"zaiEntrypoint": "Z AI Einstiegspunkt",
+		"zaiEntrypointDescription": "Bitte wählen Sie den entsprechenden API-Einstiegspunkt basierend auf Ihrem Standort. Wenn Sie sich in China befinden, wählen Sie open.bigmodel.cn. Andernfalls wählen Sie api.z.ai.",
 		"geminiApiKey": "Gemini API-Schlüssel",
 		"getGroqApiKey": "Groq API-Schlüssel erhalten",
 		"groqApiKey": "Groq API-Schlüssel",
+		"getSambaNovaApiKey": "SambaNova API-Schlüssel erhalten",
+		"sambaNovaApiKey": "SambaNova API-Schlüssel",
 		"getHuggingFaceApiKey": "Hugging Face API-Schlüssel erhalten",
 		"huggingFaceApiKey": "Hugging Face API-Schlüssel",
 		"huggingFaceModelId": "Modell-ID",
@@ -304,7 +333,6 @@
 		"cacheUsageNote": "Hinweis: Wenn Sie keine Cache-Nutzung sehen, versuchen Sie ein anderes Modell auszuwählen und dann Ihr gewünschtes Modell erneut auszuwählen.",
 		"vscodeLmModel": "Sprachmodell",
 		"vscodeLmWarning": "Hinweis: Dies ist eine sehr experimentelle Integration und die Anbieterunterstützung variiert. Wenn Sie einen Fehler über ein nicht unterstütztes Modell erhalten, liegt das Problem auf Anbieterseite.",
-
 		"geminiParameters": {
 			"urlContext": {
 				"title": "URL-Kontext aktivieren",
@@ -348,6 +376,10 @@
 		"humanRelay": {
 			"description": "Es ist kein API-Schlüssel erforderlich, aber der Benutzer muss beim Kopieren und Einfügen der Informationen in den Web-Chat-KI helfen.",
 			"instructions": "Während der Verwendung wird ein Dialogfeld angezeigt und die aktuelle Nachricht wird automatisch in die Zwischenablage kopiert. Du musst diese in Web-Versionen von KI (wie ChatGPT oder Claude) einfügen, dann die Antwort der KI zurück in das Dialogfeld kopieren und auf die Bestätigungsschaltfläche klicken."
+		},
+		"roo": {
+			"authenticatedMessage": "Sicher authentifiziert über dein Roo Code Cloud-Konto.",
+			"connectButton": "Mit Roo Code Cloud verbinden"
 		},
 		"openRouter": {
 			"providerRouting": {
@@ -410,9 +442,17 @@
 		},
 		"reasoningEffort": {
 			"label": "Modell-Denkaufwand",
+			"minimal": "Minimal (schnellste)",
 			"high": "Hoch",
 			"medium": "Mittel",
 			"low": "Niedrig"
+		},
+		"verbosity": {
+			"label": "Ausgabe-Ausführlichkeit",
+			"high": "Hoch",
+			"medium": "Mittel",
+			"low": "Niedrig",
+			"description": "Steuert, wie detailliert die Antworten des Modells sind. Niedrige Ausführlichkeit erzeugt knappe Antworten, während hohe Ausführlichkeit gründliche Erklärungen liefert."
 		},
 		"setReasoningLevel": "Denkaufwand aktivieren",
 		"claudeCode": {
@@ -688,6 +728,10 @@
 		"PREVENT_FOCUS_DISRUPTION": {
 			"name": "Hintergrundbearbeitung",
 			"description": "Verhindert Editor-Fokus-Störungen wenn aktiviert. Dateibearbeitungen erfolgen im Hintergrund ohne Öffnung von Diff-Ansichten oder Fokus-Diebstahl. Du kannst ungestört weiterarbeiten, während Roo Änderungen vornimmt. Dateien können ohne Fokus geöffnet werden, um Diagnosen zu erfassen oder vollständig geschlossen bleiben."
+		},
+		"ASSISTANT_MESSAGE_PARSER": {
+			"name": "Neuen Nachrichtenparser verwenden",
+			"description": "Aktiviere den experimentellen Streaming-Nachrichtenparser, der lange Antworten durch effizientere Verarbeitung spürbar schneller macht."
 		}
 	},
 	"promptCaching": {
@@ -706,6 +750,7 @@
 		"noComputerUse": "Unterstützt keine Computernutzung",
 		"supportsPromptCache": "Unterstützt Prompt-Cache",
 		"noPromptCache": "Unterstützt keinen Prompt-Cache",
+		"contextWindow": "Kontextfenster:",
 		"maxOutput": "Maximale Ausgabe",
 		"inputPrice": "Eingabepreis",
 		"outputPrice": "Ausgabepreis",

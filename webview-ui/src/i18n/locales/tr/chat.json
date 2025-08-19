@@ -2,12 +2,15 @@
 	"greeting": "Roo Code'a Hoş Geldiniz",
 	"task": {
 		"title": "Görev",
+		"expand": "Görevi genişlet",
+		"collapse": "Görevi daralt",
 		"seeMore": "Daha fazla gör",
 		"seeLess": "Daha az gör",
-		"tokens": "Tokenlar:",
-		"cache": "Önbellek:",
-		"apiCost": "API Maliyeti:",
-		"contextWindow": "Bağlam Uzunluğu:",
+		"tokens": "Tokenlar",
+		"cache": "Önbellek",
+		"apiCost": "API Maliyeti",
+		"size": "Boyut",
+		"contextWindow": "Bağlam Uzunluğu",
 		"closeAndStart": "Görevi kapat ve yeni bir görev başlat",
 		"export": "Görev geçmişini dışa aktar",
 		"delete": "Görevi sil (Onayı atlamak için Shift + Tıkla)",
@@ -139,7 +142,6 @@
 		"streamingFailed": "API Akışı Başarısız"
 	},
 	"checkpoint": {
-		"initial": "İlk Kontrol Noktası",
 		"regular": "Kontrol Noktası",
 		"initializingWarning": "Kontrol noktası hala başlatılıyor... Bu çok uzun sürerse, <settingsLink>ayarlar</settingsLink> bölümünden kontrol noktalarını devre dışı bırakabilir ve görevinizi yeniden başlatabilirsiniz.",
 		"menu": {
@@ -265,9 +267,9 @@
 		"title": "🎉 Roo Code {{version}} Yayınlandı",
 		"description": "Roo Code {{version}}, geliştirme iş akışınızı geliştirmek için güçlü yeni özellikler ve önemli iyileştirmeler getiriyor.",
 		"whatsNew": "Yenilikler",
-		"feature1": "<bold>Hugging Face Sağlayıcısı</bold>: Yeni Hugging Face sağlayıcısı aracılığıyla sorunsuz entegrasyon ve model seçimi ile tonlarca harika açık kaynak modeline doğrudan erişin.",
-		"feature2": "<bold>Satır İçi Komut Kontrolleri</bold>: Komut yürütme için yeni otomatik onay ve reddetme kontrolleri, özelleştirilebilir izinlerle terminal işlemleri üzerinde hassas kontrol sağlar.",
-		"feature3": "<bold>AGENTS.md Kuralları Desteği</bold>: Projenin kökünde topluluk standardı AGENTS.md dosyası için destek ekler.",
+		"feature1": "<bold>Mesaj Kuyruğu</bold>: Roo çalışırken birden fazla mesajı kuyruğa alın, iş akışınızı kesintisiz olarak planlamaya devam etmenizi sağlar.",
+		"feature2": "<bold>Özel Slash Komutları</bold>: Sık kullanılan promptlara ve iş akışlarına hızlı erişim için kişiselleştirilmiş slash komutları oluşturun, tam UI yönetimi ile.",
+		"feature3": "<bold>Gelişmiş Gemini Araçları</bold>: Yeni URL bağlamı ve Google Arama temellendirilmesi yetenekleri, Gemini modellerine gerçek zamanlı web bilgileri ve gelişmiş araştırma yetenekleri sağlar.",
 		"hideButton": "Duyuruyu gizle",
 		"detailsDiscussLinks": "<discordLink>Discord</discordLink> ve <redditLink>Reddit</redditLink>'te daha fazla ayrıntı alın ve tartışmalara katılın 🚀"
 	},
@@ -314,6 +316,11 @@
 			"title": "Otomatik Onaylanan İstek Limiti Aşıldı",
 			"description": "Roo, {{count}} API isteği/istekleri için otomatik onaylanan limite ulaştı. Sayacı sıfırlamak ve göreve devam etmek istiyor musunuz?",
 			"button": "Sıfırla ve Devam Et"
+		},
+		"autoApprovedCostLimitReached": {
+			"title": "Otomatik Onaylanan Maliyet Sınırına Ulaşıldı",
+			"description": "Roo otomatik olarak onaylanmış ${{count}} maliyet sınırına ulaştı. Maliyeti sıfırlamak ve göreve devam etmek ister misiniz?",
+			"button": "Sıfırla ve Devam Et"
 		}
 	},
 	"codebaseSearch": {
@@ -342,9 +349,9 @@
 		"ariaLabel": "Sürüm {{version}} - Sürüm notlarını görüntülemek için tıklayın"
 	},
 	"rooCloudCTA": {
-		"title": "Roo Code Cloud yakında geliyor!",
+		"title": "Roo Code Cloud gelişiyor!",
 		"description": "Bulutta uzak ajanlar çalıştırın, görevlerinize her yerden erişin, başkalarıyla işbirliği yapın ve daha fazlası.",
-		"joinWaitlist": "Erken erişim için bekleme listesine katılın."
+		"joinWaitlist": "En son güncellemeleri almak için kaydolun."
 	},
 	"editMessage": {
 		"placeholder": "Mesajını düzenle..."
@@ -355,7 +362,7 @@
 	"slashCommands": {
 		"tooltip": "Eğik çizgi komutlarını yönet",
 		"title": "Eğik Çizgi Komutları",
-		"description": "Sık kullanılan komut istemleri ve iş akışlarına hızlı erişim için özel eğik çizgi komutları oluşturun.",
+		"description": "Sık kullanılan komut istemleri ve iş akışlarına hızlı erişim için özel eğik çizgi komutları oluşturun. <DocsLink>Belgeler</DocsLink>",
 		"globalCommands": "Genel Komutlar",
 		"workspaceCommands": "Çalışma Alanı Komutları",
 		"globalCommand": "Genel komut",

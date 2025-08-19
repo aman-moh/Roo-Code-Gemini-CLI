@@ -2,12 +2,15 @@
 	"greeting": "Bem-vindo ao Roo Code",
 	"task": {
 		"title": "Tarefa",
+		"expand": "Expandir tarefa",
+		"collapse": "Recolher tarefa",
 		"seeMore": "Ver mais",
 		"seeLess": "Ver menos",
-		"tokens": "Tokens:",
-		"cache": "Cache:",
-		"apiCost": "Custo da API:",
-		"contextWindow": "Janela de contexto:",
+		"tokens": "Tokens",
+		"cache": "Cache",
+		"apiCost": "Custo da API",
+		"size": "Tamanho",
+		"contextWindow": "Janela de contexto",
 		"closeAndStart": "Fechar tarefa e iniciar nova",
 		"export": "Exportar histórico de tarefas",
 		"delete": "Excluir tarefa (Shift + Clique para pular confirmação)",
@@ -139,7 +142,6 @@
 		"streamingFailed": "Streaming API falhou"
 	},
 	"checkpoint": {
-		"initial": "Ponto de verificação inicial",
 		"regular": "Ponto de verificação",
 		"initializingWarning": "Ainda inicializando ponto de verificação... Se isso demorar muito, você pode desativar os pontos de verificação nas <settingsLink>configurações</settingsLink> e reiniciar sua tarefa.",
 		"menu": {
@@ -265,9 +267,9 @@
 		"title": "🎉 Roo Code {{version}} Lançado",
 		"description": "Roo Code {{version}} traz novos recursos poderosos e melhorias significativas para aprimorar seu fluxo de trabalho de desenvolvimento.",
 		"whatsNew": "O que há de novo",
-		"feature1": "<bold>Provedor Hugging Face</bold>: Acesse toneladas de excelentes modelos de código aberto diretamente através do novo provedor Hugging Face com integração perfeita e seleção de modelos.",
-		"feature2": "<bold>Controles de Comando Inline</bold>: Novos controles de aprovação automática e negação para execução de comandos oferecem controle preciso sobre operações de terminal com permissões personalizáveis.",
-		"feature3": "<bold>Suporte a Regras AGENTS.md</bold>: Adiciona suporte para um arquivo AGENTS.md padrão da comunidade na raiz do projeto.",
+		"feature1": "<bold>Fila de Mensagens</bold>: Coloque várias mensagens na fila enquanto o Roo está trabalhando, permitindo que você continue planejando seu fluxo de trabalho sem interrupção.",
+		"feature2": "<bold>Comandos de Barra Personalizados</bold>: Crie comandos de barra personalizados para acesso rápido a prompts e fluxos de trabalho usados frequentemente, com gerenciamento completo da interface do usuário.",
+		"feature3": "<bold>Ferramentas Gemini Aprimoradas</bold>: Novas capacidades de contexto de URL e fundamentação de pesquisa do Google fornecem aos modelos Gemini informações web em tempo real e capacidades de pesquisa aprimoradas.",
 		"hideButton": "Ocultar anúncio",
 		"detailsDiscussLinks": "Obtenha mais detalhes e participe da discussão no <discordLink>Discord</discordLink> e <redditLink>Reddit</redditLink> 🚀"
 	},
@@ -314,6 +316,11 @@
 			"title": "Limite de Solicitações Auto-aprovadas Atingido",
 			"description": "Roo atingiu o limite auto-aprovado de {{count}} solicitação(ões) de API. Deseja redefinir a contagem e prosseguir com a tarefa?",
 			"button": "Redefinir e Continuar"
+		},
+		"autoApprovedCostLimitReached": {
+			"title": "Limite de Custo com Aprovação Automática Atingido",
+			"description": "Roo atingiu o limite de custo com aprovação automática de US${{count}}. Você gostaria de redefinir o custo e prosseguir com a tarefa?",
+			"button": "Redefinir e Continuar"
 		}
 	},
 	"codebaseSearch": {
@@ -342,9 +349,9 @@
 		"ariaLabel": "Versão {{version}} - Clique para ver as notas de lançamento"
 	},
 	"rooCloudCTA": {
-		"title": "Roo Code Cloud chegará em breve!",
+		"title": "Roo Code Cloud está evoluindo!",
 		"description": "Execute agentes remotos na nuvem, acesse suas tarefas de qualquer lugar, colabore com outros e muito mais.",
-		"joinWaitlist": "Junte-se à lista de espera para obter acesso antecipado."
+		"joinWaitlist": "Cadastre-se para receber as últimas atualizações."
 	},
 	"editMessage": {
 		"placeholder": "Edite sua mensagem..."
@@ -355,7 +362,7 @@
 	"slashCommands": {
 		"tooltip": "Gerenciar comandos de barra",
 		"title": "Comandos de Barra",
-		"description": "Crie comandos de barra personalizados para acesso rápido a prompts e fluxos de trabalho usados com frequência.",
+		"description": "Crie comandos de barra personalizados para acesso rápido a prompts e fluxos de trabalho usados com frequência. <DocsLink>Documentação</DocsLink>",
 		"globalCommands": "Comandos Globais",
 		"workspaceCommands": "Comandos do Espaço de Trabalho",
 		"globalCommand": "Comando global",

@@ -2,12 +2,15 @@
 	"greeting": "Chào mừng đến với Roo Code",
 	"task": {
 		"title": "Nhiệm vụ",
+		"expand": "Mở rộng nhiệm vụ",
+		"collapse": "Thu gọn nhiệm vụ",
 		"seeMore": "Xem thêm",
 		"seeLess": "Thu gọn",
-		"tokens": "Tokens:",
-		"cache": "Bộ nhớ đệm:",
-		"apiCost": "Chi phí API:",
-		"contextWindow": "Chiều dài bối cảnh:",
+		"tokens": "Tokens",
+		"cache": "Bộ nhớ đệm",
+		"apiCost": "Chi phí API",
+		"size": "Kích thước",
+		"contextWindow": "Chiều dài bối cảnh",
 		"closeAndStart": "Đóng nhiệm vụ và bắt đầu nhiệm vụ mới",
 		"export": "Xuất lịch sử nhiệm vụ",
 		"delete": "Xóa nhiệm vụ (Shift + Click để bỏ qua xác nhận)",
@@ -139,7 +142,6 @@
 		"streamingFailed": "Streaming API thất bại"
 	},
 	"checkpoint": {
-		"initial": "Điểm kiểm tra ban đầu",
 		"regular": "Điểm kiểm tra",
 		"initializingWarning": "Đang khởi tạo điểm kiểm tra... Nếu quá trình này mất quá nhiều thời gian, bạn có thể vô hiệu hóa điểm kiểm tra trong <settingsLink>cài đặt</settingsLink> và khởi động lại tác vụ của bạn.",
 		"menu": {
@@ -265,9 +267,9 @@
 		"title": "🎉 Roo Code {{version}} Đã phát hành",
 		"description": "Roo Code {{version}} mang đến các tính năng mạnh mẽ mới và cải tiến đáng kể để nâng cao quy trình phát triển của bạn.",
 		"whatsNew": "Có gì mới",
-		"feature1": "<bold>Nhà cung cấp Hugging Face</bold>: Truy cập hàng tấn mô hình mã nguồn mở tuyệt vời trực tiếp thông qua nhà cung cấp Hugging Face mới với tích hợp liền mạch và lựa chọn mô hình.",
-		"feature2": "<bold>Điều khiển Lệnh Inline</bold>: Các điều khiển tự động phê duyệt và từ chối mới cho việc thực thi lệnh cung cấp cho bạn quyền kiểm soát chính xác các hoạt động terminal với quyền có thể tùy chỉnh.",
-		"feature3": "<bold>Hỗ trợ Quy tắc AGENTS.md</bold>: Thêm hỗ trợ cho tệp AGENTS.md tiêu chuẩn cộng đồng trong thư mục gốc của dự án.",
+		"feature1": "<bold>Hàng đợi Tin nhắn</bold>: Xếp hàng nhiều tin nhắn trong khi Roo đang làm việc, cho phép bạn tiếp tục lập kế hoạch quy trình làm việc mà không bị gián đoạn.",
+		"feature2": "<bold>Lệnh Slash Tùy chỉnh</bold>: Tạo các lệnh slash được cá nhân hóa để truy cập nhanh vào các prompt và quy trình làm việc thường dùng, với quản lý UI đầy đủ.",
+		"feature3": "<bold>Công cụ Gemini Nâng cao</bold>: Khả năng ngữ cảnh URL mới và nền tảng tìm kiếm Google cung cấp cho các mô hình Gemini thông tin web thời gian thực và khả năng nghiên cứu nâng cao.",
 		"hideButton": "Ẩn thông báo",
 		"detailsDiscussLinks": "Nhận thêm chi tiết và thảo luận tại <discordLink>Discord</discordLink> và <redditLink>Reddit</redditLink> 🚀"
 	},
@@ -314,6 +316,11 @@
 			"title": "Đã Đạt Giới Hạn Yêu Cầu Tự Động Phê Duyệt",
 			"description": "Roo đã đạt đến giới hạn tự động phê duyệt là {{count}} yêu cầu API. Bạn có muốn đặt lại bộ đếm và tiếp tục nhiệm vụ không?",
 			"button": "Đặt lại và Tiếp tục"
+		},
+		"autoApprovedCostLimitReached": {
+			"button": "Đặt lại và Tiếp tục",
+			"title": "Đã Đạt Giới Hạn Chi Phí Tự Động Phê Duyệt",
+			"description": "Roo đã đạt đến giới hạn chi phí tự động phê duyệt là ${{count}}. Bạn có muốn đặt lại chi phí và tiếp tục với nhiệm vụ không?"
 		}
 	},
 	"codebaseSearch": {
@@ -342,9 +349,9 @@
 		"ariaLabel": "Phiên bản {{version}} - Nhấp để xem ghi chú phát hành"
 	},
 	"rooCloudCTA": {
-		"title": "Roo Code Cloud sắp ra mắt!",
+		"title": "Roo Code Cloud đang phát triển!",
 		"description": "Chạy các agent từ xa trên cloud, truy cập các tác vụ của bạn từ mọi nơi, cộng tác với người khác và nhiều hơn nữa.",
-		"joinWaitlist": "Tham gia danh sách chờ để được truy cập sớm."
+		"joinWaitlist": "Đăng ký để nhận các cập nhật mới nhất."
 	},
 	"editMessage": {
 		"placeholder": "Chỉnh sửa tin nhắn của bạn..."
@@ -355,7 +362,7 @@
 	"slashCommands": {
 		"tooltip": "Quản lý lệnh gạch chéo",
 		"title": "Lệnh Gạch Chéo",
-		"description": "Tạo lệnh gạch chéo tùy chỉnh để truy cập nhanh vào các lời nhắc và quy trình làm việc thường dùng.",
+		"description": "Tạo lệnh gạch chéo tùy chỉnh để truy cập nhanh vào các lời nhắc và quy trình làm việc thường dùng. <DocsLink>Tài liệu</DocsLink>",
 		"globalCommands": "Lệnh Toàn Cục",
 		"workspaceCommands": "Lệnh Không Gian Làm Việc",
 		"globalCommand": "Lệnh toàn cục",

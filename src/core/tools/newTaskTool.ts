@@ -1,5 +1,7 @@
 import delay from "delay"
 
+import { RooCodeEventName } from "@roo-code/types"
+
 import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../shared/tools"
 import { Task } from "../task/Task"
 import { defaultModeSlug, getModeBySlug } from "../../shared/modes"
@@ -81,7 +83,8 @@ export async function newTaskTool(
 			cline.pausedModeSlug = (await provider.getState()).mode ?? defaultModeSlug
 
 			// Create new task instance first (this preserves parent's current mode in its history)
-			const newCline = await provider.initClineWithTask(unescapedMessage, undefined, cline)
+			const newCline = await provider.createTask(unescapedMessage, undefined, cline)
+
 			if (!newCline) {
 				pushToolResult(t("tools:newTask.errors.policy_restriction"))
 				return
@@ -93,14 +96,14 @@ export async function newTaskTool(
 			// Delay to allow mode change to take effect
 			await delay(500)
 
-			cline.emit("taskSpawned", newCline.taskId)
+			cline.emit(RooCodeEventName.TaskSpawned, newCline.taskId)
 
 			pushToolResult(`Successfully created new task in ${targetMode.name} mode with message: ${unescapedMessage}`)
 
 			// Set the isPaused flag to true so the parent
 			// task can wait for the sub-task to finish.
 			cline.isPaused = true
-			cline.emit("taskPaused")
+			cline.emit(RooCodeEventName.TaskPaused)
 
 			return
 		}

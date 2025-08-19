@@ -12,7 +12,7 @@ import { formatResponse } from "../prompts/responses"
 import { fileExistsAtPath } from "../../utils/fs"
 import { RecordSource } from "../context-tracking/FileContextTrackerTypes"
 import { unescapeHtmlEntities } from "../../utils/text-normalization"
-import { parseXml } from "../../utils/xml"
+import { parseXmlForDiff } from "../../utils/xml"
 import { EXPERIMENT_IDS, experiments } from "../../shared/experiments"
 import { applyDiffToolLegacy } from "./applyDiffTool"
 
@@ -108,7 +108,10 @@ export async function applyDiffTool(
 	if (argsXmlTag) {
 		// Parse file entries from XML (new way)
 		try {
-			const parsed = parseXml(argsXmlTag, ["file.diff.content"]) as ParsedXmlResult
+			// IMPORTANT: We use parseXmlForDiff here instead of parseXml to prevent HTML entity decoding
+			// This ensures exact character matching when comparing parsed content against original file content
+			// Without this, special characters like & would be decoded to &amp; causing diff mismatches
+			const parsed = parseXmlForDiff(argsXmlTag, ["file.diff.content"]) as ParsedXmlResult
 			const files = Array.isArray(parsed.file) ? parsed.file : [parsed.file].filter(Boolean)
 
 			for (const file of files) {
@@ -132,13 +135,17 @@ export async function applyDiffTool(
 					let diffContent: string
 					let startLine: number | undefined
 
-					diffContent = diff.content
+					// Ensure content is a string before storing it
+					diffContent = typeof diff.content === "string" ? diff.content : ""
 					startLine = diff.start_line ? parseInt(diff.start_line) : undefined
 
-					operationsMap[filePath].diff.push({
-						content: diffContent,
-						startLine,
-					})
+					// Only add to operations if we have valid content
+					if (diffContent) {
+						operationsMap[filePath].diff.push({
+							content: diffContent,
+							startLine,
+						})
+					}
 				}
 			}
 		} catch (error) {
@@ -525,9 +532,10 @@ ${errorDetails ? `\nTechnical details:\n${errorDetails}\n` : ""}
 					isProtected: isWriteProtected,
 				}
 
-				// If single file, ask for approval
+				// If single file, handle based on PREVENT_FOCUS_DISRUPTION setting
 				let didApprove = true
 				if (operationsToApprove.length === 1) {
+					// Prepare common data for single file operation
 					const diffContents = diffItems.map((item) => item.content).join("\n\n")
 					const operationMessage = JSON.stringify({
 						...sharedMessageProps,
@@ -535,7 +543,6 @@ ${errorDetails ? `\nTechnical details:\n${errorDetails}\n` : ""}
 					} satisfies ClineSayTool)
 
 					let toolProgressStatus
-
 					if (cline.diffStrategy && cline.diffStrategy.getProgressStatus) {
 						toolProgressStatus = cline.diffStrategy.getProgressStatus(
 							{
@@ -546,40 +553,69 @@ ${errorDetails ? `\nTechnical details:\n${errorDetails}\n` : ""}
 						)
 					}
 
-					// Check if file is write-protected
+					// Set up diff view
+					cline.diffViewProvider.editType = "modify"
+
+					// Show diff view if focus disruption prevention is disabled
+					if (!isPreventFocusDisruptionEnabled) {
+						await cline.diffViewProvider.open(relPath)
+						await cline.diffViewProvider.update(originalContent!, true)
+						cline.diffViewProvider.scrollToFirstDiff()
+					} else {
+						// For direct save, we still need to set originalContent
+						cline.diffViewProvider.originalContent = await fs.readFile(absolutePath, "utf-8")
+					}
+
+					// Ask for approval (same for both flows)
 					const isWriteProtected = cline.rooProtectedController?.isWriteProtected(relPath) || false
 					didApprove = await askApproval("tool", operationMessage, toolProgressStatus, isWriteProtected)
-				}
 
-				if (!didApprove) {
-					if (!isPreventFocusDisruptionEnabled) {
-						await cline.diffViewProvider.revertChanges()
+					if (!didApprove) {
+						// Revert changes if diff view was shown
+						if (!isPreventFocusDisruptionEnabled) {
+							await cline.diffViewProvider.revertChanges()
+						}
+						results.push(`Changes to ${relPath} were not approved by user`)
+						continue
 					}
-					results.push(`Changes to ${relPath} were not approved by user`)
-					continue
-				}
 
-				if (isPreventFocusDisruptionEnabled) {
-					// Direct file write without diff view or opening the file
-					cline.diffViewProvider.editType = "modify"
-					cline.diffViewProvider.originalContent = await fs.readFile(absolutePath, "utf-8")
-					await cline.diffViewProvider.saveDirectly(
-						relPath,
-						originalContent!,
-						false,
-						diagnosticsEnabled,
-						writeDelayMs,
-					)
+					// Save the changes
+					if (isPreventFocusDisruptionEnabled) {
+						// Direct file write without diff view or opening the file
+						await cline.diffViewProvider.saveDirectly(
+							relPath,
+							originalContent!,
+							false,
+							diagnosticsEnabled,
+							writeDelayMs,
+						)
+					} else {
+						// Call saveChanges to update the DiffViewProvider properties
+						await cline.diffViewProvider.saveChanges(diagnosticsEnabled, writeDelayMs)
+					}
 				} else {
-					// Original behavior with diff view
-					// Show diff view before asking for approval (only for single file or after batch approval)
-					cline.diffViewProvider.editType = "modify"
-					await cline.diffViewProvider.open(relPath)
-					await cline.diffViewProvider.update(originalContent!, true)
-					cline.diffViewProvider.scrollToFirstDiff()
+					// Batch operations - already approved above
+					if (isPreventFocusDisruptionEnabled) {
+						// Direct file write without diff view or opening the file
+						cline.diffViewProvider.editType = "modify"
+						cline.diffViewProvider.originalContent = await fs.readFile(absolutePath, "utf-8")
+						await cline.diffViewProvider.saveDirectly(
+							relPath,
+							originalContent!,
+							false,
+							diagnosticsEnabled,
+							writeDelayMs,
+						)
+					} else {
+						// Original behavior with diff view
+						cline.diffViewProvider.editType = "modify"
+						await cline.diffViewProvider.open(relPath)
+						await cline.diffViewProvider.update(originalContent!, true)
+						cline.diffViewProvider.scrollToFirstDiff()
 
-					// Call saveChanges to update the DiffViewProvider properties
-					await cline.diffViewProvider.saveChanges(diagnosticsEnabled, writeDelayMs)
+						// Call saveChanges to update the DiffViewProvider properties
+						await cline.diffViewProvider.saveChanges(diagnosticsEnabled, writeDelayMs)
+					}
 				}
 
 				// Track file edit operation

@@ -1,5 +1,194 @@
 # Roo Code Changelog
 
+## [3.25.17] - 2025-08-17
+
+- Fix: Resolve terminal reuse logic issues
+
+## [3.25.16] - 2025-08-16
+
+- Add support for OpenAI gpt-5-chat-latest model (#7057 by @PeterDaveHello, PR by @app/roomote)
+- Fix: Use native Ollama API instead of OpenAI compatibility layer (#7070 by @LivioGama, PR by @daniel-lxs)
+- Fix: Prevent XML entity decoding in diff tools (#7107 by @indiesewell, PR by @app/roomote)
+- Fix: Add type check before calling .match() on diffItem.content (#6905 by @pwilkin, PR by @app/roomote)
+- Refactor task execution system: improve call stack management (thanks @catrielmuller!)
+- Fix: Enable save button for provider dropdown and checkbox changes (thanks @daniel-lxs!)
+- Add an API for resuming tasks by ID (thanks @mrubens!)
+- Emit event when a task ask requires interaction (thanks @cte!)
+- Make enhance with task history default to true (thanks @liwilliam2021!)
+- Fix: Use cline.cwd as primary source for workspace path in codebaseSearchTool (thanks @NaccOll!)
+- Hotfix multiple folder workspace checkpoint (thanks @NaccOll!)
+
+## [3.25.15] - 2025-08-14
+
+- Fix: Remove 500-message limit to prevent scrollbar jumping in long conversations (#7052, #7063 by @daniel-lxs, PR by @app/roomote)
+- Fix: Reset condensing state when switching tasks (#6919 by @f14XuanLv, PR by @f14XuanLv)
+- Fix: Implement sitemap generation in TypeScript and remove XML file (#5231 by @abumalick, PR by @abumalick)
+- Fix: allowedMaxRequests and allowedMaxCost values not showing in the settings UI (thanks @chrarnoldus!)
+
+## [3.25.14] - 2025-08-13
+
+- Fix: Only include verbosity parameter for models that support it (#7054 by @eastonmeth, PR by @app/roomote)
+- Fix: AWS Bedrock 1M context - Move anthropic_beta to additionalModelRequestFields (thanks @daniel-lxs!)
+- Fix: Make cancelling requests more responsive by reverting recent changes
+
+## [3.25.13] - 2025-08-12
+
+- Add Sonnet 1M context checkbox to Bedrock
+- Fix: add --no-messages flag to ripgrep to suppress file access errors (#6756 by @R-omk, PR by @app/roomote)
+- Add support for AGENT.md alongside AGENTS.md (#6912 by @Brendan-Z, PR by @app/roomote)
+- Remove deprecated GPT-4.5 Preview model (thanks @PeterDaveHello!)
+
+## [3.25.12] - 2025-08-12
+
+- Update: Claude Sonnet 4 context window configurable to 1 million tokens in Anthropic provider (thanks @daniel-lxs!)
+- Add: Minimal reasoning support to OpenRouter (thanks @daniel-lxs!)
+- Fix: Add configurable API request timeout for local providers (#6521 by @dabockster, PR by @app/roomote)
+- Fix: Add --no-sandbox flag to browser launch options (#6632 by @QuinsZouls, PR by @QuinsZouls)
+- Fix: Ensure JSON files respect .rooignore during indexing (#6690 by @evermoving, PR by @app/roomote)
+- Add: New Chutes provider models (#6698 by @fstandhartinger, PR by @app/roomote)
+- Add: OpenAI gpt-oss models to Amazon Bedrock dropdown (#6752 by @josh-clanton-powerschool, PR by @app/roomote)
+- Fix: Correct tool repetition detector to not block first tool call when limit is 1 (#6834 by @NaccOll, PR by @app/roomote)
+- Fix: Improve checkpoint service initialization handling (thanks @NaccOll!)
+- Update: Improve zh-TW Traditional Chinese locale (thanks @PeterDaveHello!)
+- Add: Task expand and collapse translations (thanks @app/roomote!)
+- Update: Exclude GPT-5 models from 20% context window output token cap (thanks @app/roomote!)
+- Fix: Truncate long model names in model selector to prevent overflow (thanks @app/roomote!)
+- Add: Requesty base url support (thanks @requesty-JohnCosta27!)
+
+## [3.25.11] - 2025-08-11
+
+- Add: Native OpenAI provider support for Codex Mini model (#5386 by @KJ7LNW, PR by @daniel-lxs)
+- Add: IO Intelligence Provider support (thanks @ertan2002!)
+- Fix: MCP startup issues and remove refresh notifications (thanks @hannesrudolph!)
+- Fix: Improvements to GPT-5 OpenAI provider configuration (thanks @hannesrudolph!)
+- Fix: Clarify codebase_search path parameter as optional and improve tool descriptions (thanks @app/roomote!)
+- Fix: Bedrock provider workaround for LiteLLM passthrough issues (thanks @jr!)
+- Fix: Token usage and cost being underreported on cancelled requests (thanks @chrarnoldus!)
+
+## [3.25.10] - 2025-08-07
+
+- Add support for GPT-5 (thanks Cline and @app/roomote!)
+- Fix: Use CDATA sections in XML examples to prevent parser errors (#4852 by @hannesrudolph, PR by @hannesrudolph)
+- Fix: Add missing MCP error translation keys (thanks @app/roomote!)
+
+## [3.25.9] - 2025-08-07
+
+- Fix: Resolve rounding issue with max tokens (#6806 by @markp018, PR by @mrubens)
+- Add support for GLM-4.5 and OpenAI gpt-oss models in Fireworks provider (#6753 by @alexfarlander, PR by @app/roomote)
+- Improve UX by focusing chat input when clicking plus button in extension menu (thanks @app/roomote!)
+
+## [3.25.8] - 2025-08-06
+
+- Fix: Prevent disabled MCP servers from starting processes and show correct status (#6036 by @hannesrudolph, PR by @app/roomote)
+- Fix: Handle current directory path "." correctly in codebase_search tool (#6514 by @hannesrudolph, PR by @app/roomote)
+- Fix: Trim whitespace from OpenAI base URL to fix model detection (#6559 by @vauhochzett, PR by @app/roomote)
+- Feat: Reduce Gemini 2.5 Pro minimum thinking budget to 128 (thanks @app/roomote!)
+- Fix: Improve handling of net::ERR_ABORTED errors in URL fetching (#6632 by @QuinsZouls, PR by @app/roomote)
+- Fix: Recover from error state when Qdrant becomes available (#6660 by @hannesrudolph, PR by @app/roomote)
+- Fix: Resolve memory leak in ChatView virtual scrolling implementation (thanks @xyOz-dev!)
+- Add: Swift files to fallback list (#5857 by @niteshbalusu11, #6555 by @sealad886, PR by @niteshbalusu11)
+- Feat: Clamp default model max tokens to 20% of context window (thanks @mrubens!)
+
+## [3.25.7] - 2025-08-05
+
+- Add support for Claude Opus 4.1
+- Add Fireworks AI provider (#6653 by @ershang-fireworks, PR by @ershang-fireworks)
+- Add Z AI provider (thanks @jues!)
+- Add Groq support for GPT-OSS
+- Add Cerebras support for GPT-OSS
+- Add code indexing support for multiple folders similar to task history (#6197 by @NaccOll, PR by @NaccOll)
+- Make mode selection dropdowns responsive (#6423 by @AyazKaan, PR by @AyazKaan)
+- Redesigned task header and task history (thanks @brunobergher!)
+- Fix checkpoints timing and ensure checkpoints work properly (#4827 by @mrubens, PR by @NaccOll)
+- Fix empty mode names from being saved (#5766 by @kfxmvp, PR by @app/roomote)
+- Fix MCP server creation when setting is disabled (#6607 by @characharm, PR by @app/roomote)
+- Update highlight layer style and align to textarea (#6647 by @NaccOll, PR by @NaccOll)
+- Fix UI for approving chained commands
+- Use assistantMessageParser class instead of parseAssistantMessage (#5340 by @qdaxb, PR by @qdaxb)
+- Conditionally include reminder section based on todo list config (thanks @NaccOll!)
+- Task and TaskProvider event emitter cleanup with new events (thanks @cte!)
+
+## [3.25.6] - 2025-08-01
+
+- Set horizon-beta model max tokens to 32k for OpenRouter (requested by @hannesrudolph, PR by @app/roomote)
+- Add support for syncing provider profiles from the cloud
+
+## [3.25.5] - 2025-08-01
+
+- Fix: Improve Claude Code ENOENT error handling with installation guidance (#5866 by @JamieJ1, PR by @app/roomote)
+- Fix: LM Studio model context length (#5075 by @Angular-Angel, PR by @pwilkin)
+- Fix: VB.NET indexing by implementing fallback chunking system (#6420 by @JensvanZutphen, PR by @daniel-lxs)
+- Add auto-approved cost limits (thanks @hassoncs!)
+- Add Cerebras as a provider (thanks @kevint-cerebras!)
+- Add Qwen 3 Coder from Cerebras (thanks @kevint-cerebras!)
+- Fix: Handle Qdrant deletion errors gracefully to prevent indexing interruption (thanks @daniel-lxs!)
+- Fix: Restore message sending when clicking save button (thanks @daniel-lxs!)
+- Fix: Linter not applied to locales/\*/README.md (thanks @liwilliam2021!)
+- Handle more variations of chaining and subshell command validation
+- More tolerant search/replace match
+- Clean up the auto-approve UI (thanks @mrubens!)
+- Skip interpolation for non-existent slash commands (thanks @app/roomote!)
+
+## [3.25.4] - 2025-07-30
+
+- feat: add SambaNova provider integration (#6077 by @snova-jorgep, PR by @snova-jorgep)
+- feat: add Doubao provider integration (thanks @AntiMoron!)
+- feat: set horizon-alpha model max tokens to 32k for OpenRouter (thanks @app/roomote!)
+- feat: add zai-org/GLM-4.5-FP8 model to Chutes AI provider (#6440 by @leakless21, PR by @app/roomote)
+- feat: add symlink support for AGENTS.md file loading (thanks @app/roomote!)
+- feat: optionally add task history context to prompt enhancement (thanks @liwilliam2021!)
+- fix: remove misleading task resumption message (#5850 by @KJ7LNW, PR by @KJ7LNW)
+- feat: add pattern to support Databricks /invocations endpoints (thanks @adambrand!)
+- fix: resolve navigator global error by updating mammoth and bluebird dependencies (#6356 by @hishtadlut, PR by @app/roomote)
+- feat: enhance token counting by extracting text from messages using VSCode LM API (#6112 by @sebinseban, PR by @NaccOll)
+- feat: auto-refresh marketplace data when organization settings change (thanks @app/roomote!)
+- fix: kill button for execute_command tool (thanks @daniel-lxs!)
+
+## [3.25.3] - 2025-07-30
+
+- Allow queueing messages with images
+- Increase Claude Code default max output tokens to 16k (#6125 by @bpeterson1991, PR by @app/roomote)
+- Add docs link for slash commands
+- Hide Gemini checkboxes on the welcome view
+- Clarify apply_diff tool descriptions to emphasize surgical edits
+- Fix: Prevent input clearing when clicking chat buttons (thanks @hassoncs!)
+- Update PR reviewer rules and mode configuration (thanks @daniel-lxs!)
+- Add translation check action to pull_request.opened event (thanks @app/roomote!)
+- Remove "(prev Roo Cline)" from extension title in all languages (thanks @app/roomote!)
+- Remove event types mention from PR reviewer rules (thanks @daniel-lxs!)
+
+## [3.25.2] - 2025-07-29
+
+- Fix: Show diff view before approval when background edits are disabled (thanks @daniel-lxs!)
+- Add support for organization-level MCP controls
+- Fix zap icon hover state
+
+## [3.25.1] - 2025-07-29
+
+- Add support for GLM-4.5-Air model to Chutes AI provider (#6376 by @matbgn, PR by @app/roomote)
+- Improve subshell validation for commands
+
+## [3.25.0] - 2025-07-29
+
+- Add message queueing (thanks @app/roomote!)
+- Add custom slash commands
+- Add options for URL Context and Grounding with Google Search to the Gemini provider (thanks @HahaBill!)
+- Add image support to read_file tool (thanks @samhvw8!)
+- Add experimental setting to prevent editor focus disruption (#4784 by @hannesrudolph, PR by @app/roomote)
+- Add prompt caching support for LiteLLM (#5791 by @steve-gore-snapdocs, PR by @MuriloFP)
+- Add markdown table rendering support
+- Fix list_files recursive mode now works for dot directories (#2992 by @avtc, #4807 by @zhang157686, #5409 by @MuriloFP, PR by @MuriloFP)
+- Add search functionality to mode selector popup and reorganize layout
+- Sync API config selector style with mode selector
+- Fix keyboard shortcuts for non-QWERTY layouts (#6161 by @shlgug, PR by @app/roomote)
+- Add ESC key handling for modes, API provider, and indexing settings popovers (thanks @app/roomote!)
+- Make task mode sticky to task (thanks @app/roomote!)
+- Add text wrapping to command patterns in Manage Command Permissions (thanks @app/roomote!)
+- Update list-files test for fixed hidden files bug (thanks @daniel-lxs!)
+- Fix normalize Windows paths to forward slashes in mode export (#6307 by @hannesrudolph, PR by @app/roomote)
+- Ensure form-data >= 4.0.4
+- Fix filter out non-text tab inputs (Kilo-Org/kilocode#712 by @szermatt, PR by @hassoncs)
+
 ## [3.24.0] - 2025-07-25
 
 - Add Hugging Face provider with support for open source models (thanks @TGlide!)

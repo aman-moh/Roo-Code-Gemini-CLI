@@ -17,7 +17,7 @@ import { getLiteLLMModels } from "./litellm"
 import { GetModelsOptions } from "../../../shared/api"
 import { getOllamaModels } from "./ollama"
 import { getLMStudioModels } from "./lmstudio"
-
+import { getIOIntelligenceModels } from "./io-intelligence"
 const memoryCache = new NodeCache({ stdTTL: 5 * 60, checkperiod: 5 * 60 })
 
 async function writeModels(router: RouterName, data: ModelRecord) {
@@ -47,7 +47,7 @@ async function readModels(router: RouterName): Promise<ModelRecord | undefined> 
  */
 export const getModels = async (options: GetModelsOptions): Promise<ModelRecord> => {
 	const { provider } = options
-	let models = memoryCache.get<ModelRecord>(provider)
+	let models = getModelsFromCache(provider)
 	if (models) {
 		return models
 	}
@@ -77,6 +77,9 @@ export const getModels = async (options: GetModelsOptions): Promise<ModelRecord>
 				break
 			case "lmstudio":
 				models = await getLMStudioModels(options.baseUrl)
+				break
+			case "io-intelligence":
+				models = await getIOIntelligenceModels(options.apiKey)
 				break
 			default: {
 				// Ensures router is exhaustively checked if RouterName is a strict union
@@ -112,4 +115,8 @@ export const getModels = async (options: GetModelsOptions): Promise<ModelRecord>
  */
 export const flushModels = async (router: RouterName) => {
 	memoryCache.del(router)
+}
+
+export function getModelsFromCache(provider: string) {
+	return memoryCache.get<ModelRecord>(provider)
 }

@@ -1,4 +1,5 @@
-import { OrganizationAllowList, ProviderSettings } from "@roo-code/types"
+import type { ProviderSettings } from "@roo-code/types"
+import type { OrganizationAllowList } from "@roo-code/cloud"
 
 export class ProfileValidator {
 	public static isProfileAllowed(profile: ProviderSettings, allowList: OrganizationAllowList): boolean {
@@ -41,6 +42,7 @@ export class ProfileValidator {
 		}
 
 		const providerAllowList = allowList.providers[providerName]
+
 		if (!providerAllowList) {
 			return false
 		}
@@ -65,7 +67,9 @@ export class ProfileValidator {
 			case "deepseek":
 			case "xai":
 			case "groq":
+			case "sambanova":
 			case "chutes":
+			case "fireworks":
 				return profile.apiModelId
 			case "litellm":
 				return profile.litellmModelId
@@ -84,6 +88,8 @@ export class ProfileValidator {
 				return profile.ollamaModelId
 			case "requesty":
 				return profile.requestyModelId
+			case "io-intelligence":
+				return profile.ioIntelligenceModelId
 			case "human-relay":
 			case "fake-ai":
 			default:

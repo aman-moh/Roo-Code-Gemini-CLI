@@ -2,12 +2,15 @@
 	"greeting": "Benvingut a Roo Code",
 	"task": {
 		"title": "Tasca",
+		"expand": "Expandir tasca",
+		"collapse": "Replegar tasca",
 		"seeMore": "Veure més",
 		"seeLess": "Veure menys",
-		"tokens": "Tokens:",
-		"cache": "Caché:",
-		"apiCost": "Cost d'API:",
-		"contextWindow": "Finestra de context:",
+		"tokens": "Tokens",
+		"cache": "Caché",
+		"apiCost": "Cost d'API",
+		"size": "Mida",
+		"contextWindow": "Finestra de context",
 		"closeAndStart": "Tancar tasca i iniciar-ne una de nova",
 		"export": "Exportar historial de tasques",
 		"delete": "Eliminar tasca (Shift + Clic per ometre confirmació)",
@@ -139,7 +142,6 @@
 		"streamingFailed": "Transmissió API ha fallat"
 	},
 	"checkpoint": {
-		"initial": "Punt de control inicial",
 		"regular": "Punt de control",
 		"initializingWarning": "Encara s'està inicialitzant el punt de control... Si això triga massa, pots desactivar els punts de control a la <settingsLink>configuració</settingsLink> i reiniciar la teva tasca.",
 		"menu": {
@@ -265,9 +267,9 @@
 		"title": "🎉 Roo Code {{version}} Llançat",
 		"description": "Roo Code {{version}} porta noves funcions potents i millores significatives per millorar el vostre flux de treball de desenvolupament.",
 		"whatsNew": "Novetats",
-		"feature1": "<bold>Proveïdor de Hugging Face</bold>: Accedeix a molts models de codi obert excel·lents directament a través del nou proveïdor de Hugging Face amb integració perfecta i selecció de models.",
-		"feature2": "<bold>Controls de Comandament en Línia</bold>: Nous controls d'aprovació automàtica i denegació per a l'execució de comandaments et donen control precís sobre les operacions de terminal amb permisos personalitzables.",
-		"feature3": "<bold>Suport per a Regles AGENTS.md</bold>: Afegeix suport per a un fitxer AGENTS.md estàndard de la comunitat a l'arrel del projecte.",
+		"feature1": "<bold>Cua de Missatges</bold>: Posa en cua múltiples missatges mentre Roo està treballant, permetent-te continuar planificant el teu flux de treball sense interrupcions.",
+		"feature2": "<bold>Comandaments de Barra Personalitzats</bold>: Crea comandaments de barra personalitzats per a accés ràpid a prompts i fluxos de treball utilitzats freqüentment, amb gestió completa de la interfície d'usuari.",
+		"feature3": "<bold>Eines Gemini Millorades</bold>: Noves capacitats de context d'URL i fonamentació de cerca de Google proporcionen als models Gemini informació web en temps real i capacitats de recerca millorades.",
 		"hideButton": "Amaga l'anunci",
 		"detailsDiscussLinks": "Obtén més detalls i uneix-te a les discussions a <discordLink>Discord</discordLink> i <redditLink>Reddit</redditLink> 🚀"
 	},
@@ -314,6 +316,11 @@
 			"title": "S'ha arribat al límit de sol·licituds aprovades automàticament",
 			"description": "Roo ha arribat al límit aprovat automàticament de {{count}} sol·licitud(s) d'API. Vols reiniciar el comptador i continuar amb la tasca?",
 			"button": "Reiniciar i continuar"
+		},
+		"autoApprovedCostLimitReached": {
+			"title": "S'ha arribat al límit de cost d'aprovació automàtica",
+			"button": "Restableix i continua",
+			"description": "Roo ha arribat al límit de cost aprovat automàticament de ${{count}}. Vols restablir el cost i continuar amb la tasca?"
 		}
 	},
 	"codebaseSearch": {
@@ -342,9 +349,9 @@
 		"ariaLabel": "Versió {{version}} - Feu clic per veure les notes de llançament"
 	},
 	"rooCloudCTA": {
-		"title": "Roo Code Cloud arribarà aviat!",
+		"title": "Roo Code Cloud està evolucionant!",
 		"description": "Executa agents remots al núvol, accedeix a les teves tasques des de qualsevol lloc, col·labora amb altres i molt més.",
-		"joinWaitlist": "Uneix-te a la llista d'espera per obtenir accés anticipat."
+		"joinWaitlist": "Registra't per rebre les últimes actualitzacions."
 	},
 	"editMessage": {
 		"placeholder": "Edita el teu missatge..."
@@ -355,7 +362,7 @@
 	"slashCommands": {
 		"tooltip": "Gestionar ordres de barra",
 		"title": "Ordres de Barra",
-		"description": "Crea ordres de barra personalitzades per accedir ràpidament a indicacions i fluxos de treball utilitzats amb freqüència.",
+		"description": "Crea ordres de barra personalitzades per accedir ràpidament a indicacions i fluxos de treball utilitzats amb freqüència. <DocsLink>Documentació</DocsLink>",
 		"globalCommands": "Ordres Globals",
 		"workspaceCommands": "Ordres de l'Espai de Treball",
 		"globalCommand": "Ordre global",

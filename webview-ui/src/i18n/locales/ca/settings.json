@@ -127,6 +127,7 @@
 	},
 	"autoApprove": {
 		"description": "Permet que Roo realitzi operacions automàticament sense requerir aprovació. Activeu aquesta configuració només si confieu plenament en la IA i enteneu els riscos de seguretat associats.",
+		"enabled": "Auto-aprovació activada",
 		"toggleAriaLabel": "Commuta l'aprovació automàtica",
 		"disabledAriaLabel": "Aprovació automàtica desactivada: seleccioneu primer les opcions",
 		"readOnly": {
@@ -197,7 +198,14 @@
 			"description": "Fes aquesta quantitat de sol·licituds API automàticament abans de demanar aprovació per continuar amb la tasca.",
 			"unlimited": "Il·limitat"
 		},
-		"selectOptionsFirst": "Seleccioneu almenys una opció a continuació per activar l'aprovació automàtica"
+		"selectOptionsFirst": "Seleccioneu almenys una opció a continuació per activar l'aprovació automàtica",
+		"apiCostLimit": {
+			"title": "Cost Màxim",
+			"unlimited": "Il·limitat"
+		},
+		"maxLimits": {
+			"description": "Fes sol·licituds automàticament fins a aquests límits abans de demanar aprovació per continuar."
+		}
 	},
 	"providers": {
 		"providerDocumentation": "Documentació de {{provider}}",
@@ -245,20 +253,41 @@
 			"error": "No s'ha pogut actualitzar la llista de models. Si us plau, torneu-ho a provar."
 		},
 		"getRequestyApiKey": "Obtenir clau API de Requesty",
+		"getRequestyBaseUrl": "URL base",
+		"requestyUseCustomBaseUrl": "Utilitza l'URL base personalitzada",
 		"openRouterTransformsText": "Comprimir prompts i cadenes de missatges a la mida del context (<a>Transformacions d'OpenRouter</a>)",
 		"anthropicApiKey": "Clau API d'Anthropic",
 		"getAnthropicApiKey": "Obtenir clau API d'Anthropic",
 		"anthropicUseAuthToken": "Passar la clau API d'Anthropic com a capçalera d'autorització en lloc de X-Api-Key",
+		"anthropic1MContextBetaLabel": "Activa la finestra de context d'1M (Beta)",
+		"anthropic1MContextBetaDescription": "Amplia la finestra de context a 1 milió de tokens per a Claude Sonnet 4",
+		"awsBedrock1MContextBetaLabel": "Activa la finestra de context d'1M (Beta)",
+		"awsBedrock1MContextBetaDescription": "Amplia la finestra de context a 1 milió de tokens per a Claude Sonnet 4",
+		"cerebrasApiKey": "Clau API de Cerebras",
+		"getCerebrasApiKey": "Obtenir clau API de Cerebras",
 		"chutesApiKey": "Clau API de Chutes",
 		"getChutesApiKey": "Obtenir clau API de Chutes",
+		"fireworksApiKey": "Clau API de Fireworks",
+		"getFireworksApiKey": "Obtenir clau API de Fireworks",
+		"ioIntelligenceApiKey": "Clau API d'IO Intelligence",
+		"ioIntelligenceApiKeyPlaceholder": "Introdueix la teva clau d'API de IO Intelligence",
+		"getIoIntelligenceApiKey": "Obtenir clau API d'IO Intelligence",
 		"deepSeekApiKey": "Clau API de DeepSeek",
 		"getDeepSeekApiKey": "Obtenir clau API de DeepSeek",
+		"doubaoApiKey": "Clau API de Doubao",
+		"getDoubaoApiKey": "Obtenir clau API de Doubao",
 		"moonshotApiKey": "Clau API de Moonshot",
 		"getMoonshotApiKey": "Obtenir clau API de Moonshot",
 		"moonshotBaseUrl": "Punt d'entrada de Moonshot",
+		"zaiApiKey": "Clau API de Z AI",
+		"getZaiApiKey": "Obtenir clau API de Z AI",
+		"zaiEntrypoint": "Punt d'entrada de Z AI",
+		"zaiEntrypointDescription": "Si us plau, seleccioneu el punt d'entrada de l'API apropiat segons la vostra ubicació. Si sou a la Xina, trieu open.bigmodel.cn. Altrament, trieu api.z.ai.",
 		"geminiApiKey": "Clau API de Gemini",
 		"getGroqApiKey": "Obtenir clau API de Groq",
 		"groqApiKey": "Clau API de Groq",
+		"getSambaNovaApiKey": "Obtenir clau API de SambaNova",
+		"sambaNovaApiKey": "Clau API de SambaNova",
 		"getHuggingFaceApiKey": "Obtenir clau API de Hugging Face",
 		"huggingFaceApiKey": "Clau API de Hugging Face",
 		"huggingFaceModelId": "ID del model",
@@ -304,7 +333,6 @@
 		"cacheUsageNote": "Nota: Si no veieu l'ús de la caché, proveu de seleccionar un model diferent i després tornar a seleccionar el model desitjat.",
 		"vscodeLmModel": "Model de llenguatge",
 		"vscodeLmWarning": "Nota: Aquesta és una integració molt experimental i el suport del proveïdor variarà. Si rebeu un error sobre un model no compatible, és un problema del proveïdor.",
-
 		"geminiParameters": {
 			"urlContext": {
 				"title": "Activa el context d'URL",
@@ -348,6 +376,10 @@
 		"humanRelay": {
 			"description": "No es requereix clau API, però l'usuari necessita ajuda per copiar i enganxar informació al xat d'IA web.",
 			"instructions": "Durant l'ús, apareixerà un diàleg i el missatge actual es copiarà automàticament al porta-retalls. Necessiteu enganxar-lo a les versions web d'IA (com ChatGPT o Claude), després copiar la resposta de l'IA de nou al diàleg i fer clic al botó de confirmació."
+		},
+		"roo": {
+			"authenticatedMessage": "Autenticat de forma segura a través del teu compte de Roo Code Cloud.",
+			"connectButton": "Connecta amb Roo Code Cloud"
 		},
 		"openRouter": {
 			"providerRouting": {
@@ -410,9 +442,17 @@
 		},
 		"reasoningEffort": {
 			"label": "Esforç de raonament del model",
+			"minimal": "Mínim (el més ràpid)",
 			"high": "Alt",
 			"medium": "Mitjà",
 			"low": "Baix"
+		},
+		"verbosity": {
+			"label": "Verbositat de la sortida",
+			"high": "Alta",
+			"medium": "Mitjana",
+			"low": "Baixa",
+			"description": "Controla el nivell de detall de les respostes del model. La verbositat baixa produeix respostes concises, mentre que la verbositat alta proporciona explicacions exhaustives."
 		},
 		"setReasoningLevel": "Activa l'esforç de raonament",
 		"claudeCode": {
@@ -688,6 +728,10 @@
 		"PREVENT_FOCUS_DISRUPTION": {
 			"name": "Edició en segon pla",
 			"description": "Quan s'activa, evita la interrupció del focus de l'editor. Les edicions de fitxers es produeixen en segon pla sense obrir la vista diff o robar el focus. Pots continuar treballant sense interrupcions mentre Roo fa canvis. Els fitxers poden obrir-se sense focus per capturar diagnòstics o romandre completament tancats."
+		},
+		"ASSISTANT_MESSAGE_PARSER": {
+			"name": "Utilitza el nou analitzador de missatges",
+			"description": "Activa l'analitzador de missatges en streaming experimental que millora el rendiment en respostes llargues processant els missatges de manera més eficient."
 		}
 	},
 	"promptCaching": {
@@ -706,6 +750,7 @@
 		"noComputerUse": "No suporta ús de l'ordinador",
 		"supportsPromptCache": "Suporta emmagatzematge en caché de prompts",
 		"noPromptCache": "No suporta emmagatzematge en caché de prompts",
+		"contextWindow": "Finestra de context:",
 		"maxOutput": "Sortida màxima",
 		"inputPrice": "Preu d'entrada",
 		"outputPrice": "Preu de sortida",
