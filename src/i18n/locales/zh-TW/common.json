@@ -91,6 +91,15 @@
 			"generate_complete_prompt": "Gemini 完成錯誤：{{error}}",
 			"sources": "來源："
 		},
+		"geminiCli": {
+			"oauthLoadFailed": "無法載入 OAuth 憑證。請先進行驗證：{{error}}",
+			"tokenRefreshFailed": "無法重新整理 OAuth 權杖：{{error}}",
+			"onboardingTimeout": "新手導引操作在 60 秒後逾時。請稍後再試。",
+			"projectDiscoveryFailed": "無法發現專案 ID。請確保您已使用 'gemini auth' 進行驗證。",
+			"rateLimitExceeded": "超過速率限制。已達到免費層級限制。",
+			"badRequest": "錯誤的請求：{{details}}",
+			"apiError": "Gemini CLI API 錯誤：{{error}}",
+			"completionError": "Gemini CLI 完成錯誤：{{error}}"
 		"cerebras": {
 			"authenticationFailed": "Cerebras API 驗證失敗。請檢查您的 API 金鑰是否有效且未過期。",
 			"accessForbidden": "Cerebras API 存取被拒絕。您的 API 金鑰可能無法存取所請求的模型或功能。",

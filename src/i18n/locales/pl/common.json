@@ -92,6 +92,15 @@
 			"generate_complete_prompt": "Błąd uzupełniania Gemini: {{error}}",
 			"sources": "Źródła:"
 		},
+		"geminiCli": {
+			"oauthLoadFailed": "Nie udało się załadować danych uwierzytelniających OAuth. Najpierw się uwierzytelnij: {{error}}",
+			"tokenRefreshFailed": "Nie udało się odświeżyć tokenu OAuth: {{error}}",
+			"onboardingTimeout": "Operacja wdrażania przekroczyła limit czasu po 60 sekundach. Spróbuj ponownie później.",
+			"projectDiscoveryFailed": "Nie można odkryć ID projektu. Upewnij się, że jesteś uwierzytelniony za pomocą 'gemini auth'.",
+			"rateLimitExceeded": "Przekroczono limit szybkości. Osiągnięto limity darmowego poziomu.",
+			"badRequest": "Nieprawidłowe żądanie: {{details}}",
+			"apiError": "Błąd API Gemini CLI: {{error}}",
+			"completionError": "Błąd uzupełniania Gemini CLI: {{error}}"
 		"cerebras": {
 			"authenticationFailed": "Uwierzytelnianie API Cerebras nie powiodło się. Sprawdź, czy twój klucz API jest ważny i nie wygasł.",
 			"accessForbidden": "Dostęp do API Cerebras zabroniony. Twój klucz API może nie mieć dostępu do żądanego modelu lub funkcji.",

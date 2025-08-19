@@ -92,6 +92,17 @@
 			"generate_complete_prompt": "Gemini completion error: {{error}}",
 			"sources": "Sources:"
 		},
+
+		"geminiCli": {
+			"oauthLoadFailed": "Failed to load OAuth credentials. Please authenticate first: {{error}}",
+			"tokenRefreshFailed": "Failed to refresh OAuth token: {{error}}",
+			"onboardingTimeout": "Onboarding operation timed out after 60 seconds. Please try again later.",
+			"projectDiscoveryFailed": "Could not discover project ID. Make sure you're authenticated with 'gemini auth'.",
+			"rateLimitExceeded": "Rate limit exceeded. Free tier limits have been reached.",
+			"badRequest": "Bad request: {{details}}",
+			"apiError": "Gemini CLI API error: {{error}}",
+			"completionError": "Gemini CLI completion error: {{error}}"
+
 		"cerebras": {
 			"authenticationFailed": "Cerebras API authentication failed. Please check your API key is valid and not expired.",
 			"accessForbidden": "Cerebras API access forbidden. Your API key may not have access to the requested model or feature.",
@@ -103,6 +114,7 @@
 		},
 		"roo": {
 			"authenticationRequired": "Roo provider requires cloud authentication. Please sign in to Roo Code Cloud."
+
 		}
 	},
 	"warnings": {

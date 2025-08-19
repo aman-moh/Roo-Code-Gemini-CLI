@@ -92,6 +92,15 @@
 			"generate_complete_prompt": "Gemini tamamlama hatası: {{error}}",
 			"sources": "Kaynaklar:"
 		},
+		"geminiCli": {
+			"oauthLoadFailed": "OAuth kimlik bilgileri yüklenemedi. Lütfen önce kimlik doğrulaması yapın: {{error}}",
+			"tokenRefreshFailed": "OAuth token yenilenemedi: {{error}}",
+			"onboardingTimeout": "Onboarding işlemi 60 saniye sonra zaman aşımına uğradı. Lütfen daha sonra tekrar deneyin.",
+			"projectDiscoveryFailed": "Proje ID'si keşfedilemedi. 'gemini auth' ile kimlik doğrulaması yaptığınızdan emin olun.",
+			"rateLimitExceeded": "Hız sınırı aşıldı. Ücretsiz seviye sınırlarına ulaşıldı.",
+			"badRequest": "Geçersiz istek: {{details}}",
+			"apiError": "Gemini CLI API hatası: {{error}}",
+			"completionError": "Gemini CLI tamamlama hatası: {{error}}"
 		"cerebras": {
 			"authenticationFailed": "Cerebras API kimlik doğrulama başarısız oldu. API anahtarınızın geçerli olduğunu ve süresi dolmadığını kontrol edin.",
 			"accessForbidden": "Cerebras API erişimi yasak. API anahtarınız istenen modele veya özelliğe erişimi olmayabilir.",
